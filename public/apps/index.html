@@ -73,11 +73,15 @@
                     <a role="button" href="#" class="btn btn-danger text-center" onclick="logout()">Logout</a>
 
                     <input type="button" value="Find It !!!" class="btn btn-lg btn-success text-center btn-block mt-1" id="findBtn">
-                    <ol class="mt-3 text-white">
-                        <h5>Hi Human! You must be curious enough to reach here. Hence instruction shall be written</h5>
-                        <li>Add your favorite food to the vault from time to time (It will save in database)</li>
-                        <li>Click "Find it!!" to choose for ya !</li>
-                    </ol>
+                    <div class="text-white mt-3" id="instructionDiv">
+                        <h1 class="txt-rotate" data-period="200 " data-rotate='["Add your favorite food to the vault from time to time (It will save in database)","Read the instruction bitch    ","Sorry for bad language","Who ask you not to read instruction "]' style="display: none;"
+                            id="madInstruction"></h1>
+                        <h4 class="niceInstruction">Hi Human! You must be curious enough to reach here. Hence instruction shall be written</h4>
+                        <ol>
+                            <li class="niceInstruction">Add your favorite food to the vault from time to time (It will save in database)</li>
+                            <li class="niceInstruction">Click "Find it!!" to choose for ya !</li>
+                        </ol>
+                    </div>
 
                 </div>
             </div>
