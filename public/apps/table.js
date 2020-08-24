@@ -1,7 +1,7 @@
 particleJS();
 makeFloatOnParticle("content-wrapper");
 
-$("#submitBtn").on('click', function() { addRecord(event) });
+$("#submitBtn").on('click', () => { addRecord(event) });
 
 var tableCounter = 0;
 
@@ -9,11 +9,11 @@ function deleteFood(id) {
     db
         .doc(`user/${firebase.auth().currentUser.uid}/food/${id}`)
         .delete()
-        .then(function(doc) {
+        .then(doc => {
             console.log(doc);
             getFromFirebase()
         })
-        .catch(function(error) {
+        .catch(error => {
             console.log(error)
         })
 }
@@ -30,11 +30,11 @@ function addRecord(event) {
                 food: foodLabel.val(),
                 user: firebase.auth().currentUser.uid
             })
-            .then(function(response) {
+            .then(response => {
                 foodLabel.val("");
                 getFromFirebase()
             })
-            .catch(function(error) {
+            .catch(error => {
                 console.log(error)
             });
     }

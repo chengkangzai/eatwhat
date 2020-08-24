@@ -25,10 +25,10 @@ function deleteEntry(docId) {
     db.collection("feedback")
         .doc(docId)
         .delete()
-        .then(function() {
+        .then(() => {
             console.log("Document successfully deleted!");
             $("#" + docId).hide();
-        }).catch(function(error) {
+        }).catch((error) => {
             console.error("Error removing document: ", error);
         });
 }
@@ -40,7 +40,7 @@ db.collection('feedback')
         snapshot.docs.forEach(doc => {
             renderFeedback(doc);
         });
-    }).catch(function(error) {
+    }).catch(error => {
         if (error.code == "permission-denied") {
             window.location.href = "404.html";
         }

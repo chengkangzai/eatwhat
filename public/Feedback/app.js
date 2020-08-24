@@ -8,11 +8,11 @@ function submitFeedback() {
             "timestamp": timestamp,
             "user": firebase.auth().currentUser.email
         })
-        .then(function() {
+        .then(() => {
             alert("Thanks for your feedback !");
             feedback.val("");
         })
-        .catch(function(error) {
+        .catch((error) => {
             console.error("Error writing document: ", error);
             alert("What a shame... there is an error" + error);
         });
@@ -24,7 +24,7 @@ function checkIfIsEnter(event) {
 
 db.collection("feedback")
     .get()
-    .then(function(snap) {
+    .then(snap => {
         $(".form-group").append(
             `<a class="btn btn-primary mt-3" href="read.html" role="button">View Feedback </a>`
         );
