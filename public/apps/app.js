@@ -4,8 +4,8 @@ makeFloatOnParticle("content-wrapper");
 var food = [];
 var tableCounter = 0;
 
-$("#submitBtn").on('click', function() { addRecord(event) });
-$("#findBtn").on('click', function() { chooseFood() });
+$("#submitBtn").on('click', (event) => { addRecord(event) });
+$("#findBtn").on('click', () => { chooseFood() });
 
 function addRecord(event) {
     event.preventDefault();
@@ -19,11 +19,11 @@ function addRecord(event) {
                 food: foodLabel.val(),
                 user: firebase.auth().currentUser.uid
             })
-            .then(function(response) {
+            .then(response => {
                 foodLabel.val("");
                 getFromFirebase()
             })
-            .catch(function(error) {
+            .catch(error => {
                 console.log(error)
             });
     }
@@ -33,11 +33,11 @@ function deleteFood(id) {
     db
         .doc(`user/${firebase.auth().currentUser.uid}/food/${id}`)
         .delete()
-        .then(function(doc) {
+        .then(doc => {
             console.log(doc);
             getFromFirebase()
         })
-        .catch(function(error) {
+        .catch(error => {
             console.log(error)
         })
 }
@@ -75,7 +75,7 @@ function chooseFood() {
         $(".niceInstruction").hide();
         $("#madInstruction").show();
         $("#findBtn").addClass("btn-danger").removeClass("btn-success");
-        var elements = document.getElementsByClassName('txt-rotate');
+        var elements = $('.txt-rotate');
         for (var i = 0; i < elements.length; i++) {
             var toRotate = elements[i].getAttribute('data-rotate');
             var period = elements[i].getAttribute('data-period');
