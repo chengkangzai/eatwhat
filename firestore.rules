@@ -6,7 +6,10 @@ service cloud.firestore {
       allow read, write: if request.auth.uid != null;
     }
     match /feedback/{anything=**}{
-    allow read,write: if request.auth.token.email== "pycck@hotmail.com" || "kangkangge.ge@gmail.com";
+    	allow read,write: if request.auth.uid != null;
+    }
+    match /bingo/{anything=**}{
+    	allow read,write: if request.auth.uid != null;
     }
   }
 }
