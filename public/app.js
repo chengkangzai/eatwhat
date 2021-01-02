@@ -11,7 +11,7 @@ var uiConfig = {
     },
     'credentialHelper': firebaseui.auth.CredentialHelper.NONE,
     signInFlow: 'popup',
-    signInSuccessUrl: 'apps/index.html',
+    signInSuccessUrl: 'app/index.html',
     signInOptions: [{
         provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
     }, {
@@ -39,5 +39,5 @@ if ((firebase.auth().isSignInWithEmailLink(window.location.href))) {
 }
 
 firebase.auth().onAuthStateChanged(user => {
-    if (user) { window.location.href = "apps/index.html"; }
+    if (user) { window.location.href = "app/index.html"; }
 });
