@@ -6,7 +6,11 @@ const routes: Routes = [
   {
     path: '',
     component: FoodPage,
+  },  {
+    path: 'view',
+    loadChildren: () => import('./view/view.module').then( m => m.ViewPageModule)
   }
+
 ];
 
 @NgModule({

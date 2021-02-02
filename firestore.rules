@@ -5,7 +5,7 @@ service cloud.firestore {
     match /user/{anything=**} {
       allow read, write: if request.auth.uid != null;
     }
-    match /feedback/{anything=**}{
+    match /food/{anything=**}{
     	allow read,write: if request.auth.uid != null;
     }
     match /bingo/{anything=**}{

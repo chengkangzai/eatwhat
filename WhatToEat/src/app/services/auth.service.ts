@@ -6,7 +6,7 @@ import firebase from 'firebase/app';
 import GoogleAuthProvider = firebase.auth.GoogleAuthProvider;
 import AuthProvider = firebase.auth.AuthProvider;
 
-interface User {
+export interface User {
     uid: string;
     email: string;
     displayName: string;

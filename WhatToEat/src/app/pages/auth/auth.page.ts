@@ -53,6 +53,7 @@ export class AuthPage {
         const toast = await this.toaster.create({
             message: `Welcome back ! ${$event.providerData[0].displayName}`,
             duration: 1000,
+            position: 'top'
         });
         await toast.present();
         await this.router.navigateByUrl('tabs/food');

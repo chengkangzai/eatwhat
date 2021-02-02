@@ -33,7 +33,7 @@ export class FeedbackPage implements OnInit {
     async onSubmitForm() {
         if (this.form.invalid) {
             const alert = await this.alertController.create({
-                message: 'Hi ... Please filled up the form please',
+                message: 'Hi ... Please filled up the form with at least 10 word ',
                 header: 'Validation error',
                 buttons: [{
                     text: 'Ok',

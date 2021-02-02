@@ -32,7 +32,7 @@ export class ViewPage implements OnInit, OnDestroy {
         this.isLoading = true;
 
         this.isMasterSub = this.role.isMaster().subscribe(async isMaster => {
-            if (true) {
+            if (isMaster) {
                 this.feedbackSub = this.feedbackService.feedback.subscribe((feed) => {
                     this.feedbacks = feed;
                 });
