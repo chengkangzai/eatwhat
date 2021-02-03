@@ -4,7 +4,7 @@
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
-    "public": "whattoeat/www",
+    "public": "WhatToEat/www",
     "ignore": [
       "firebase.json",
       "**/.*",
