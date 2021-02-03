@@ -14,9 +14,10 @@ import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {NgxAuthFirebaseUIModule} from 'ngx-auth-firebaseui';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {AboutComponent} from './components/about/about.component';
 
 @NgModule({
-    declarations: [AppComponent],
+    declarations: [AppComponent, AboutComponent],
     entryComponents: [],
     imports: [BrowserModule,
         IonicModule.forRoot(),
