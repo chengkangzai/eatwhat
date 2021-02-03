@@ -47,7 +47,6 @@ export class FoodService {
                     (resData as FoodInterface[]).forEach(data => {
                         temp.push(new Food(data.id, data.food, data.user));
                     });
-                    console.log(temp);
                     return temp;
                 })
                 , tap(food => {
@@ -129,7 +128,6 @@ export class FoodService {
             }, {
                 text: 'Save',
                 handler: (input) => {
-                    console.log(input.fName);
                     this.update(f, input.fName);
                 }
             }]
