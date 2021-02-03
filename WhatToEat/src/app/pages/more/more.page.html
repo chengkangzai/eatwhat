@@ -1,0 +1,41 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-title>
+            More Page
+        </ion-title>
+        <ngx-auth-firebaseui-avatar (onSignOut)="onSignOut()" [canDeleteAccount]="false" [canEditAccount]="false"
+                                    slot="end"></ngx-auth-firebaseui-avatar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <ion-grid>
+        <ion-row>
+            <ion-col offset-sm="3" size-sm="6">
+                <ion-list>
+                    <ion-item button detail href="/tabs/feedback">
+                        <ion-icon name="bug" slot="start"></ion-icon>
+                        <ion-label> Make Feedback</ion-label>
+                    </ion-item>
+                    <ion-item (click)="Logout()" button detail>
+                        <ion-icon name="log-out" slot="start"></ion-icon>
+                        <ion-label>Log Out</ion-label>
+                    </ion-item>
+                    <ion-item (click)="about()" button detail>
+                      <ion-icon name="information-circle" slot="start"></ion-icon>
+                        <ion-label>About</ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-col>
+            <ion-col *ngIf="isMaster" offset-sm="3" size-sm="6">
+                <ion-list>
+                    <ion-item button detail href="/tabs/food/view">
+                        <ion-icon name="bug" slot="start"></ion-icon>
+                        <ion-label> View Feedback</ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+</ion-content>

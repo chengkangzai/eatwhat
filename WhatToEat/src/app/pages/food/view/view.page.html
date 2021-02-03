@@ -1,0 +1,74 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Food Management</ion-title>
+        <ion-back-button defaultHref="/tabs/food" slot="start"></ion-back-button>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <!--    TODO Ads each 10 food to -->
+    <ion-grid>
+
+        <ion-row *ngIf="isLoading">
+            <ion-col size-md="8" offset-md="2" size-lg="6" offset-lg="3" class="ion-text-center">
+                <ion-spinner></ion-spinner>
+            </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="!isLoading">
+            <ion-col size-md="8" offset-md="2" size-lg="6" offset-lg="3" class="ion-text-center">
+                <form [formGroup]="form">
+                    <ion-item>
+                        <ion-label position="floating">Add new Food</ion-label>
+                        <ion-input formControlName="food" type="text"></ion-input>
+                    </ion-item>
+                </form>
+                <ion-button (click)="foodService.onSubmitForm(form)">Add food</ion-button>
+            </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="!isLoading && (foods.length >= 1)">
+            <ion-col size-md="8" offset-md="2" size-lg="6" offset-lg="3" class="ion-text-center">
+                <ion-card>
+                    <ion-card-title class="ion-padding-vertical">Your Foods {{foods.length}} </ion-card-title>
+                    <ion-card-subtitle>Slide to left to manage your food</ion-card-subtitle>
+                    <ion-card-content>
+                        <ion-virtual-scroll [items]="foods">
+                            <ion-item-sliding #itemSliding *virtualItem="let f">
+                                <ion-item button detail (click)="foodService.onShow(f,itemSliding)">
+                                    <ion-label>
+                                        <h2>{{f.food}}</h2>
+                                    </ion-label>
+                                </ion-item>
+                                <ion-item-options>
+                                    <ion-item-option (click)="foodService.onEdit(f,itemSliding)" color="primary">
+                                        <ion-icon name="create" slot="icon-only"></ion-icon>
+                                    </ion-item-option>
+                                    <ion-item-option (click)="foodService.onDelete(f,itemSliding)" color="danger">
+                                        <ion-icon name="trash" slot="icon-only"></ion-icon>
+                                    </ion-item-option>
+                                </ion-item-options>
+                            </ion-item-sliding>
+                        </ion-virtual-scroll>
+                    </ion-card-content>
+                </ion-card>
+
+
+            </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="!isLoading && ( !foods ||foods.length <= 0)">
+            <ion-col size-md="8" offset-md="2" size-lg="6" offset-lg="3" class="ion-text-center">
+                <ion-card>
+                    <ion-card-title class="ion-padding-horizontal"> Bello ✨✨</ion-card-title>
+                    <ion-card-content>
+                        Hi Look like you dont have add food or restaurant added!
+                        <br>
+                        Try to add some ? :3
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+
+    </ion-grid>
+</ion-content>

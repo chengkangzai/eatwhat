@@ -1,0 +1,32 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/more"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Create Feedback
+    </ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="onSubmitForm()">
+        <ion-icon name="checkmark" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col offset-sm="3" size-sm="6">
+        <ion-label>Hi Feel free to drop some feedbacks here to improve this app !</ion-label>
+        <hr>
+        <ion-item>
+          <form [formGroup]="form">
+            <ion-label position="floating">Your Feedback</ion-label>
+            <ion-textarea formControlName="feedback" name="feedback" rows="3"></ion-textarea>
+          </form>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
