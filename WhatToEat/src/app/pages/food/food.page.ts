@@ -29,7 +29,7 @@ export class FoodPage implements OnInit {
     }
 
     async onSignOut() {
-        await this.auth.signOut().then(() => this.router.navigateByUrl('/login'));
+        await this.auth.signOut().then(() => this.router.navigateByUrl('/auth'));
     }
 
     ngOnInit() {

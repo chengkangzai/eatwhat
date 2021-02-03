@@ -44,7 +44,7 @@ export class MorePage implements OnInit, OnDestroy {
     }
 
     async onSignOut() {
-        await this.authService.SignOut().then(() => this.router.navigateByUrl('/login'));
+        await this.authService.SignOut().then(() => this.router.navigateByUrl('/auth'));
     }
 
     async Logout() {
@@ -58,7 +58,7 @@ export class MorePage implements OnInit, OnDestroy {
                 text: 'Log Out',
                 role: 'destructive',
                 handler: async () => {
-                    await this.authService.SignOut().then(() => this.router.navigateByUrl('/login'));
+                    await this.authService.SignOut().then(() => this.router.navigateByUrl('/auth'));
                 }
             }]
         });
