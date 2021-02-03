@@ -2,9 +2,9 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthService} from '../../services/auth.service';
 import {RoleService} from '../../services/role.service';
-import {ActionSheetController, ModalController} from '@ionic/angular';
+import {AlertController, ModalController} from '@ionic/angular';
 import {Subscription} from 'rxjs';
-import {AboutComponent} from '../../about/about.component';
+import {AboutComponent} from '../../components/about/about.component';
 
 @Component({
     selector: 'app-more',
@@ -19,7 +19,7 @@ export class MorePage implements OnInit, OnDestroy {
         private router: Router,
         private authService: AuthService,
         private role: RoleService,
-        private actionSheet: ActionSheetController,
+        private alertController: AlertController,
         private modalController: ModalController,
     ) {
     }
@@ -48,19 +48,21 @@ export class MorePage implements OnInit, OnDestroy {
     }
 
     async Logout() {
-        const action = await this.actionSheet.create({
+        const alert = await this.alertController.create({
+            header: 'Warning',
+            message: 'Are you sure you want to log out ?',
             buttons: [{
-                text: 'Confirm Log Out',
+                text: 'Cancel',
+                role: 'cancel'
+            }, {
+                text: 'Log Out',
                 role: 'destructive',
                 handler: async () => {
                     await this.authService.SignOut().then(() => this.router.navigateByUrl('/login'));
                 }
-            }, {
-                text: 'Cancel',
-                role: 'cancel'
             }]
         });
-        await action.present();
+        await alert.present();
     }
 
     async about() {
