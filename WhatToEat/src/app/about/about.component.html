@@ -1,0 +1,39 @@
+<ion-header>
+    <ion-toolbar mode="md">
+        <ion-title>About</ion-title>
+        <ion-buttons slot="start">
+            <ion-button (click)="onClose()">
+                <ion-icon name="close" slot="icon-only"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col size-md="6" offset-md="3" class="ion-text-center">
+                <ion-img src="/assets/icon/favicon-lg.png" alt="app icon" style="width: 128px;margin:auto"></ion-img>
+                <hr>
+                <h2>What to Eat huh?</h2>
+                <h4>Version <span>{{version}}</span></h4>
+                <h4>Creator : <a href="https://github.com/chengkangzai/">chengkangzai</a></h4>
+            </ion-col>
+            <ion-col size-md="6" offset-md="3">
+                <ion-list>
+                    <ion-item detail href="https://github.com/chengkangzai/eatwhat">
+                        <ion-icon name="logo-github" slot="start"></ion-icon>
+                        <ion-label>Repo</ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <!--    <div class="ion-text-center ion-align-items-center ion-justify-content-center">-->
+    <!--        <img src="/assets/icon/favicon-lg.png" alt="app icon" style="width: 128px">-->
+    <!--        <hr>-->
+    <!--        <h2>What to Eat huh?</h2>-->
+    <!--        <h4>Version <span>{{version}}</span></h4>-->
+    <!--    </div>-->
+</ion-content>
