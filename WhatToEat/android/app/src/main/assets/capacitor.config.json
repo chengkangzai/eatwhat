@@ -1,5 +1,5 @@
 {
-  "appId": "io.ionic.starter",
+  "appId": "app.web.whattoeathuh",
   "appName": "WhatToEat",
   "bundledWebRuntime": false,
   "npmClient": "npm",
