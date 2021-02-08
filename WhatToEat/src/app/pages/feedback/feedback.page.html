@@ -21,9 +21,10 @@
         <ion-label>Hi Feel free to drop some feedbacks here to improve this app !</ion-label>
         <hr>
         <ion-item>
-          <form [formGroup]="form">
+          <form [formGroup]="form" (ngSubmit)="onSubmitForm()">
             <ion-label position="floating">Your Feedback</ion-label>
             <ion-textarea formControlName="feedback" name="feedback" rows="3"></ion-textarea>
+            <input type="submit" hidden>
           </form>
         </ion-item>
       </ion-col>

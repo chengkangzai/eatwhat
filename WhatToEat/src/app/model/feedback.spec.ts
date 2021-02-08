@@ -1,5 +1,5 @@
 import {Feedback} from './feedback';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import Timestamp = firebase.firestore.Timestamp;
 
 describe('Feedback', () => {
