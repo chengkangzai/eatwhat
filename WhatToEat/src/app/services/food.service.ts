@@ -4,17 +4,19 @@ import {BehaviorSubject} from 'rxjs';
 import {Food} from '../model/food';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {first, map, tap} from 'rxjs/operators';
-import {AlertController, IonItemSliding, ToastController} from '@ionic/angular';
+import {AlertController, IonItemSliding, ModalController, ToastController} from '@ionic/angular';
 import {FormGroup} from '@angular/forms';
-import firebase from 'firebase';
-import {HttpClient} from '@angular/common/http';
+import firebase from 'firebase/app';
+import {FoodComponent} from '../components/food/food.component';
 import FirebaseError = firebase.FirebaseError;
+import Timestamp = firebase.firestore.Timestamp;
 
 
 interface FoodInterface {
     id: string;
     food: string;
     user: string;
+    timestamp?: Timestamp;
 }
 
 @Injectable({
@@ -30,7 +32,7 @@ export class FoodService {
         private authService: AngularFireAuth,
         private alertController: AlertController,
         private toaster: ToastController,
-        private http: HttpClient
+        private modalController: ModalController
     ) {
     }
 
@@ -45,7 +47,7 @@ export class FoodService {
                 map(resData => {
                     const temp = [];
                     (resData as FoodInterface[]).forEach(data => {
-                        temp.push(new Food(data.id, data.food, data.user));
+                        temp.push(new Food(data.id, data.food, data.user, (data.timestamp ? data.timestamp : null)));
                     });
                     return temp;
                 })
@@ -57,11 +59,13 @@ export class FoodService {
     }
 
 
-    async update(oriFood: Food, food: string) {
+    async update(oriFood: Food, newFood: Food) {
         return this.authService.authState.subscribe(user => {
-            return this.firestore.doc(`user/${user.uid}/food/${oriFood.id}`).set({
-                food
-            });
+            newFood.timestamp = Timestamp.now();
+            newFood.userID = user.uid;
+            return this.firestore.doc(`user/${user.uid}/food/${oriFood.id}`).set(
+                JSON.parse(JSON.stringify(newFood))
+            );
         });
     }
 
@@ -71,20 +75,22 @@ export class FoodService {
         });
     }
 
-    async add(food: string) {
+    async add(food: Food) {
         const id = this.firestore.createId();
         return this.authService.authState.subscribe(user => {
-            return this.firestore.collection(`user/${user.uid}/food/`).doc(id).set({
-                food,
-                user: user.email,
-            });
+            food.id = id;
+            food.timestamp = Timestamp.now();
+            food.userID = user.uid;
+            return this.firestore.collection(`user/${user.uid}/food/`).doc(id).set(
+                JSON.parse(JSON.stringify(food))
+            );
         });
     }
 
     async onSubmitForm(form: FormGroup) {
         if (form.invalid) {
             const alert = await this.alertController.create({
-                message: 'Please add your food first ',
+                message: 'Please add your food into text input ',
                 buttons: [{
                     text: 'Ok',
                     role: 'cancel',
@@ -94,7 +100,7 @@ export class FoodService {
             return;
         }
 
-        await this.add(form.value.food).then(async () => {
+        await this.add(new Food('', form.value.food, '')).then(async () => {
             const toast = await this.toaster.create({
                 message: `${form.value.food} Added`,
                 duration: 1000
@@ -103,7 +109,6 @@ export class FoodService {
             form.reset();
         }).catch(async (err: FirebaseError) => {
             const toast = await this.toaster.create({
-                header: 'Error',
                 message: `Error Occur! Please contact developer on this regard ${err.message}`,
                 duration: 1000,
                 color: 'danger'
@@ -113,27 +118,25 @@ export class FoodService {
     }
 
     async onEdit(f: Food, itemSliding: IonItemSliding) {
-        const alert = await this.alertController.create({
-            header: 'Edit',
-            message: 'Change the name of the food ',
-            inputs: [{
-                name: 'fName',
-                type: 'text',
-                placeholder: 'New Name',
-                value: f.food
-            }],
-            buttons: [{
-                text: 'Cancel',
-                role: 'cancel'
-            }, {
-                text: 'Save',
-                handler: (input) => {
-                    this.update(f, input.fName);
-                }
-            }]
+        const modal = await this.modalController.create({
+            component: FoodComponent,
+            componentProps: {
+                food: f,
+                mode: 'EDIT'
+            },
+            backdropDismiss: false,
         });
-        await alert.present();
+        await modal.present();
         await itemSliding.close();
+        const {data} = await modal.onDidDismiss();
+
+        if (data.mode === 'CREATE') {
+            await this.update(f, new Food('', data.form.value.food, ''));
+            await this.toaster.create({
+                message: 'Updated',
+                duration: 1000,
+            });
+        }
     }
 
     async onDelete(f: Food, itemSliding: IonItemSliding) {
@@ -155,27 +158,14 @@ export class FoodService {
     }
 
     async onShow(f: Food, itemSliding: IonItemSliding) {
-        const alert = await this.alertController.create({
-            header: 'Show',
-            message: f.food,
-            buttons: [{
-                text: 'Delete',
-                role: 'destructive',
-                cssClass: 'danger',
-                handler: () => {
-                    this.onDelete(f, itemSliding);
-                }
-            }, {
-                text: 'Edit',
-                handler: () => {
-                    this.onEdit(f, itemSliding);
-                }
-            }, {
-                text: 'OK',
-                role: 'cancel'
-            }]
+        const modal = await this.modalController.create({
+            component: FoodComponent,
+            componentProps: {
+                food: f,
+                mode: 'SHOW'
+            }
         });
-        await alert.present();
+        await modal.present();
         await itemSliding.close();
     }
 
