@@ -30,7 +30,7 @@
         <ion-row *ngIf="!isLoading && (foods.length >= 1)">
             <ion-col size-md="8" offset-md="2" size-lg="6" offset-lg="3" class="ion-text-center">
                 <ion-card>
-                    <ion-card-title class="ion-padding-vertical">Your Foods {{foods.length}} </ion-card-title>
+                    <ion-card-title class="ion-padding-vertical">Your Foods ({{foods.length}}) </ion-card-title>
                     <ion-card-subtitle>Slide to left to manage your food</ion-card-subtitle>
                     <ion-card-content>
                         <ion-virtual-scroll [items]="foods">
