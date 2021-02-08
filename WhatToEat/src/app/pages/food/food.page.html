@@ -27,13 +27,13 @@
         </ion-row>
         <ion-row>
             <ion-col size-md="8" offset-md="2" size-lg="6" offset-lg="3" class="ion-text-center">
-                <form [formGroup]="form">
+                <form [formGroup]="form" (ngSubmit)="foodService.onSubmitForm(this.form)">
                     <ion-item>
                         <ion-label position="floating">Add new Food</ion-label>
                         <ion-input formControlName="food" type="text"></ion-input>
                     </ion-item>
                 </form>
-                <ion-button aria-label="Add food to collection button" (click)="foodService.onSubmitForm(form)">Add food to collection</ion-button>
+                <ion-button aria-label="Add food to collection button" (click)="foodService.onSubmitForm(this.form)">Add food to collection</ion-button>
                 <ion-button aria-label="Find what food to eat" (click)="selectFood()" color="success">Find !</ion-button>
             </ion-col>
         </ion-row>
