@@ -68,4 +68,12 @@ export class FoodPage implements OnInit {
             clearInterval(interval);
         }, Math.floor(Math.random() * 2000));
     }
+
+    test() {
+        console.log('His');
+    }
+
+    todo() {
+        // Add Food with tags ?
+    }
 }

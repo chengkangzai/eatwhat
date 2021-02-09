@@ -10,6 +10,25 @@
 
 <ion-content [fullscreen]="true">
 
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button>
+            <ion-icon name="albums"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-list side="top">
+            <ion-fab-button (click)="todo()">
+                <ion-icon name="add"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button href="/tabs/food/view">
+                <ion-icon name="pizza"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button href="/tabs/tags">
+                <ion-icon name="pricetag"></ion-icon>
+            </ion-fab-button>
+        </ion-fab-list>
+    </ion-fab>
+
+
     <ion-grid *ngIf="isLoading">
         <ion-row>
             <ion-col offset-sm="3" size-sm="6">
@@ -33,8 +52,11 @@
                         <ion-input formControlName="food" type="text"></ion-input>
                     </ion-item>
                 </form>
-                <ion-button aria-label="Add food to collection button" (click)="foodService.onSubmitForm(this.form)">Add food to collection</ion-button>
-                <ion-button aria-label="Find what food to eat" (click)="selectFood()" color="success">Find !</ion-button>
+                <ion-button aria-label="Add food to collection button" (click)="foodService.onSubmitForm(this.form)">
+                    Add food to collection
+                </ion-button>
+                <ion-button aria-label="Find what food to eat" (click)="selectFood()" color="success">Find !
+                </ion-button>
             </ion-col>
         </ion-row>
 
@@ -65,10 +87,8 @@
                     <ion-card-content>
                         <ion-list *ngIf="foods.length >= 3">
                             <ion-item-sliding #itemSliding *ngFor="let f of foods.slice(0,3)">
-                                <ion-item button detail (click)="foodService.onShow(f,itemSliding)" title="Test">
-                                    <ion-label>
-                                        <h2>{{f.food}}</h2>
-                                    </ion-label>
+                                <ion-item button detail (click)="foodService.onShow(f,itemSliding)">
+                                    <ion-label><h2>{{f.food}}</h2></ion-label>
                                 </ion-item>
                                 <ion-item-options>
                                     <ion-item-option (click)="foodService.onEdit(f,itemSliding)" color="primary">
@@ -84,9 +104,7 @@
                         <ion-list *ngIf="foods.length <=2">
                             <ion-item-sliding #itemSliding *ngFor="let f of foods">
                                 <ion-item button detail (click)="foodService.onShow(f,itemSliding)">
-                                    <ion-label>
-                                        <h2>{{f.food}}</h2>
-                                    </ion-label>
+                                    <ion-label><h2>{{f.food}}</h2></ion-label>
                                 </ion-item>
                                 <ion-item-options>
                                     <ion-item-option (click)="foodService.onEdit(f,itemSliding)" color="primary">
@@ -99,7 +117,9 @@
                             </ion-item-sliding>
                         </ion-list>
 
-                        <ion-button aria-label="Discover and manage your food" href="/tabs/food/view" fill="outline" shape="round"> More</ion-button>
+                        <ion-button aria-label="Discover and manage your food" href="/tabs/food/view" fill="outline"
+                                    shape="round"> More
+                        </ion-button>
                     </ion-card-content>
                 </ion-card>
             </ion-col>
