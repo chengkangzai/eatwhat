@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
-
 import { Platform } from '@ionic/angular';
 import {Plugins, Capacitor} from '@capacitor/core';
-
-
 
 @Component({
   selector: 'app-root',
@@ -18,9 +15,9 @@ export class AppComponent {
   }
 
   initializeApp() {
-    this.platform.ready().then(() => {
+    this.platform.ready().then(async () => {
       if (Capacitor.isPluginAvailable('SplashScreen')){
-        Plugins.SplashScreen.hide();
+        await Plugins.SplashScreen.hide();
       }
     });
   }
