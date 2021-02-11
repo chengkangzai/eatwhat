@@ -1,6 +1,6 @@
 <ion-header>
     <ion-toolbar mode="md">
-        <ion-title>{{food.food}}</ion-title>
+        <ion-title>{{f.food}}</ion-title>
         <ion-buttons slot="start">
             <ion-button (click)="onClose()" aria-label="Close About Page">
                 <ion-icon name="close" slot="icon-only"></ion-icon>
@@ -19,29 +19,22 @@
     <ion-grid *ngIf="mode=='SHOW' ">
         <ion-row>
             <ion-col size-lg="6" offset-lg="3" class="ion-text-center">
-                <div>🍕 Food : {{food.food}}</div>
+                <div>🍕 Food : {{f.food}}</div>
                 <hr>
-                <div *ngIf="food.timestamp">
-                    ⏱⏱ Added on : {{food.timestamp?.seconds * 1000 | date:'short'}}
+                <div *ngIf="f.timestamp">
+                    ⏱⏱ Added/Updated on : {{f.timestamp?.seconds * 1000 | date:'short'}}
                 </div>
                 <hr>
-                <!--                <div *ngIf="food?.tags">-->
-                <!--                    Tags:-->
-                <!--                    <ion-list *ngIf="food?.tags">-->
-                <!--                        <ion-item *ngFor="let tag of food.tags">{{tag.name}}</ion-item>-->
-                <!--                    </ion-list>-->
-                <!--                </div>-->
-                <!--                <div *ngIf="food?.restaurant">-->
-                <!--                    <p>{{food.restaurant?.name}} on {{food.restaurant?.location}}</p>-->
-                <!--                    <div *ngIf="food.restaurant.operation !== 'N/A' ">-->
-                <!--                        <ion-list *ngFor="let ope of food.restaurant.operation">-->
-                <!--                            <ion-item>-->
-                <!--                                {{ope.day}} | {{ope.start.hours}}:{{ope.start.minutes}} &ndash;&gt; {{ope.end.hours}}-->
-                <!--                                :{{ope.end.minutes}}-->
-                <!--                            </ion-item>-->
-                <!--                        </ion-list>-->
-                <!--                    </div>-->
-                <!--                </div>-->
+                <div *ngIf="this.tags">
+                    Tags Section
+                    <ion-chip *ngFor="let tag of tags" #ionChip (click)="attach(tag)" outline="true"
+                              [color]="isAttachToFood(tag) ? 'success' : 'dark' ">
+                        <ion-label>
+                            <ion-icon [name]="isAttachToFood(tag) ?'checkmark-circle' : 'close-circle'"></ion-icon>
+                            {{tag.name}}
+                        </ion-label>
+                    </ion-chip>
+                </div>
             </ion-col>
 
         </ion-row>
@@ -50,12 +43,12 @@
     <ion-grid *ngIf="mode=='EDIT'">
         <ion-row>
             <ion-col size-lg="6" offset-lg="3" class="ion-text-center">
-                <ion-title>Edit {{food.food}}</ion-title>
+                <ion-title>Edit {{f.food}}</ion-title>
                 <form [formGroup]="form" (ngSubmit)="onSubmitForm()">
                     <ion-list>
                         <ion-item>
                             <ion-label position="floating">Food 🍕</ion-label>
-                            <ion-input type="text" formControlName="food" ></ion-input>
+                            <ion-input type="text" formControlName="food"></ion-input>
                         </ion-item>
                         <input type="submit" hidden>
                     </ion-list>
