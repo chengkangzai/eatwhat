@@ -6,6 +6,7 @@ import {Subscription} from 'rxjs';
 import {Food} from '../../model/food';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ToastController} from '@ionic/angular';
+import {FoodUIService} from '../../services/food-ui.service';
 
 @Component({
     selector: 'app-tab1',
@@ -21,10 +22,11 @@ export class FoodPage implements OnInit {
     form: FormGroup;
 
     constructor(
-        public foodService: FoodService,
+        private foodService: FoodService,
         private router: Router,
         private auth: AngularFireAuth,
         private toastController: ToastController,
+        public foodUIService: FoodUIService,
     ) {
     }
 
