@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {AlertController} from '@ionic/angular';
+import {AlertController, IonItemSliding, ToastController} from '@ionic/angular';
 import {TagService} from '../../services/tag.service';
 import {Tag} from '../../model/tag';
 import firebase from 'firebase/app';
@@ -14,8 +14,7 @@ import Timestamp = firebase.firestore.Timestamp;
     styleUrls: ['./tags.page.scss'],
 })
 export class TagsPage implements OnInit {
-
-    // tslint:disable-next-line:variable-name
+    // TODO Find Food by tags!
     tags: Tag[];
     isLoading = false;
 
@@ -26,6 +25,7 @@ export class TagsPage implements OnInit {
         private tagService: TagService,
         private auth: AngularFireAuth,
         private router: Router,
+        private toaster: ToastController
     ) {
     }
 
@@ -63,10 +63,51 @@ export class TagsPage implements OnInit {
 
     async onShow(tag: Tag) {
         const alert = await this.alertController.create({
-            message: 'Tag : ' + tag.name,
+            header: 'SHOW',
+            message: `Tag : ${tag.name} `,
             buttons: ['OK']
         });
         await alert.present();
+    }
+
+    async onEdit(tag: Tag, itemSliding: IonItemSliding) {
+        const alert = await this.alertController.create({
+            header: 'EDIT',
+            message: 'Editing Tag : ' + tag.name,
+            inputs: [{
+                name: 'name',
+                value: tag.name,
+                placeholder: 'Type new tag name here',
+            }],
+            buttons: [{
+                text: 'Cancel',
+                role: 'cancel',
+            }, {
+                text: 'Update',
+                handler: (input) => {
+                    const newTag: Tag = JSON.parse(JSON.stringify(tag));
+                    newTag.name = input.name;
+                    this.tagService.update(tag, newTag).then(async () => {
+                        const toaster = await this.toaster.create({
+                            message: 'Done',
+                            duration: 1000,
+                        });
+                        await toaster.present();
+                    });
+
+                }
+            }]
+        });
+        await alert.present();
+        await itemSliding.close();
+    }
+
+    async onDelete(tag: Tag, itemSliding: IonItemSliding) {
+        console.log(tag.id);
+        this.tagService.delete(tag).then(res => {
+            console.log(res);
+        });
+        await itemSliding.close();
     }
 
 }
