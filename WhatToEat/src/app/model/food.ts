@@ -7,6 +7,7 @@ export class Food {
         public food: string,
         public userID: string,
         public timestamp?: Timestamp, // temporary, may remove when all user food have timestamp
+        public tags?: string[],
     ) {
     }
 }
