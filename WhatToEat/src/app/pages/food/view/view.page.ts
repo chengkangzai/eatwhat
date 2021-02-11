@@ -46,5 +46,9 @@ export class ViewPage implements OnInit, OnDestroy {
         }
     }
 
-
+    doRefresh($event) {
+        this.foodService.fetch().then(() => {
+            $event.target.complete();
+        });
+    }
 }

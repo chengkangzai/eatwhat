@@ -52,6 +52,12 @@ export class FoodPage implements OnInit {
         });
     }
 
+    doRefresh($event) {
+        this.foodService.fetch().then(() => {
+            $event.target.complete();
+        });
+    }
+
     async selectFood() {
         if (this.foods.length <= 1) {
             const msg = this.foods.length === 1 ? 'Bloody Hell only have one food what you want to choose La' : 'Kindly Add your favorite food to the collection ';

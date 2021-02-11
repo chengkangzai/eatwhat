@@ -8,6 +8,10 @@
 
 <ion-content>
 
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
     <ion-grid *ngIf="isLoading">
         <ion-row>
             <ion-col offset-sm="3" size-sm="6">

@@ -43,6 +43,12 @@ export class TagsPage implements OnInit {
         this.tagService.fetch().then(() => this.isLoading = false);
     }
 
+    doRefresh($event) {
+        this.tagService.fetch().then(() => {
+            $event.target.complete();
+        });
+    }
+
     async onSignOut() {
         await this.auth.signOut().then(() => this.router.navigateByUrl('/auth'));
     }
