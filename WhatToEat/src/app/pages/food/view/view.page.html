@@ -38,7 +38,7 @@
                     <ion-card-title class="ion-padding-vertical">Your Foods ({{foods.length}})</ion-card-title>
                     <ion-card-subtitle>Slide to left to manage your food</ion-card-subtitle>
                     <ion-card-content>
-                        <ion-list *ngIf="foods.length >= 3">
+                        <ion-list>
                             <ion-item-sliding #itemSliding *ngFor="let f of foods |filter:filterTerm">
                                 <ion-item button detail (click)="foodUIService.onShow(f,itemSliding)">
                                     <ion-label><h2>{{f.food}}</h2></ion-label>
