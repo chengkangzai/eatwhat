@@ -1,57 +1,57 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tabs/more"></ion-back-button>
-    </ion-buttons>
-    <ion-title>View Feedback :3</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/tabs/more"></ion-back-button>
+        </ion-buttons>
+        <ion-title>View Feedback :3</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-  <ion-refresher (ionRefresh)="doRefresh($event)" slot="fixed">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
+    <ion-refresher (ionRefresh)="doRefresh($event)" slot="fixed">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
 
-  <ion-grid *ngIf="isLoading">
-    <ion-row>
-      <ion-col class="ion-text-center">
-        <ion-spinner></ion-spinner>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+    <ion-grid *ngIf="isLoading">
+        <ion-row>
+            <ion-col class="ion-text-center">
+                <ion-spinner></ion-spinner>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 
 
-  <ion-grid *ngIf="!isLoading  && feedbacks.length <=0" class="ion-text-center horizontalCenterContainer">
-    <ion-row class="ion-align-items-center">
-      <ion-col>
-        <p style="text-align: center"> Hurrays There is no any Feedback </p>
-        <p style="text-align: center"> Maybe try to add some ? :3</p>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+    <ion-grid *ngIf="!isLoading  && feedbacks.length <=0" class="ion-text-center horizontalCenterContainer">
+        <ion-row class="ion-align-items-center">
+            <ion-col>
+                <p style="text-align: center"> Hurrays There is no any Feedback </p>
+                <p style="text-align: center"> Maybe try to add some ? :3</p>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 
-  <ion-grid *ngIf="!isLoading">
-    <ion-row>
-      <ion-col offset-sm="3" size-sm="6">
-        <ion-list *ngIf="feedbacks.length > 0 ">
-          <ion-item-sliding #itemSliding *ngFor="let f of feedbacks">
-            <ion-item button detail (click)="onShow(f,itemSliding)">
-              <ion-label>
-                <h2>{{f.feedback}}</h2>
-              </ion-label>
-            </ion-item>
-            <ion-item-options>
-              <ion-item-option (click)="onEdit(f,itemSliding)" color="primary">
-                <ion-icon name="create" slot="icon-only"></ion-icon>
-              </ion-item-option>
-              <ion-item-option (click)="onDelete(f)" color="danger">
-                <ion-icon name="trash" slot="icon-only"></ion-icon>
-              </ion-item-option>
-            </ion-item-options>
-          </ion-item-sliding>
-        </ion-list>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+    <ion-grid *ngIf="!isLoading">
+        <ion-row>
+            <ion-col offset-sm="3" size-sm="6">
+                <ion-list *ngIf="feedbacks.length > 0 ">
+                    <ion-item-sliding #itemSliding *ngFor="let f of feedbacks">
+                        <ion-item (click)="onShow(f,itemSliding)" button detail>
+                            <ion-label>
+                                <h2>{{f.feedback}}</h2>
+                            </ion-label>
+                        </ion-item>
+                        <ion-item-options>
+                            <ion-item-option (click)="onEdit(f,itemSliding)" color="primary">
+                                <ion-icon name="create" slot="icon-only"></ion-icon>
+                            </ion-item-option>
+                            <ion-item-option (click)="onDelete(f)" color="danger">
+                                <ion-icon name="trash" slot="icon-only"></ion-icon>
+                            </ion-item-option>
+                        </ion-item-options>
+                    </ion-item-sliding>
+                </ion-list>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>

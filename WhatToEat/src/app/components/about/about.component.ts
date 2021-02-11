@@ -19,7 +19,7 @@ export class AboutComponent implements OnInit {
     ngOnInit() {
     }
 
-    async onClose(){
+    async onClose() {
         await this.modalController.dismiss();
     }
 }
