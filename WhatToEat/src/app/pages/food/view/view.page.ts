@@ -12,6 +12,7 @@ import {FoodUIService} from '../../../services/food-ui.service';
 })
 export class ViewPage implements OnInit, OnDestroy {
 
+    filterTerm: string;
     form: FormGroup;
     foods: Food[];
     foodSub: Subscription;
