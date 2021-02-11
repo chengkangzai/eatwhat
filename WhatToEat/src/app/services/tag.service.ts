@@ -93,14 +93,6 @@ export class TagService {
                         buttons: ['OK']
                     });
                     await alert.present();
-                    // isEmpty = doc.empty;
-                    // if (isEmpty) {
-                    //     console.log('Its Empty !');
-                    //     return this.firestore.doc(`user/${user.uid}/tags/${tag.id}`).delete();
-                    // } else {
-                    //     if ()
-                    //
-                    // }
                 });
         });
 
