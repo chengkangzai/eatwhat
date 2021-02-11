@@ -1,12 +1,12 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
 
-import { IonicModule } from '@ionic/angular';
+import {IonicModule} from '@ionic/angular';
 
-import { AuthPageRoutingModule } from './auth-routing.module';
+import {AuthPageRoutingModule} from './auth-routing.module';
 
-import { AuthPage } from './auth.page';
+import {AuthPage} from './auth.page';
 import {NgxAuthFirebaseUIModule} from 'ngx-auth-firebaseui';
 
 @NgModule({
@@ -17,6 +17,7 @@ import {NgxAuthFirebaseUIModule} from 'ngx-auth-firebaseui';
         AuthPageRoutingModule,
         NgxAuthFirebaseUIModule
     ],
-  declarations: [AuthPage]
+    declarations: [AuthPage]
 })
-export class AuthPageModule {}
+export class AuthPageModule {
+}

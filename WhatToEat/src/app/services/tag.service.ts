@@ -22,10 +22,6 @@ interface TagsInterface {
 })
 export class TagService {
 
-    // tslint:disable-next-line:variable-name
-    private _tags = new BehaviorSubject<Tag[]>([]);
-
-
     constructor(
         private firestore: AngularFirestore,
         private authService: AngularFireAuth,
@@ -33,6 +29,9 @@ export class TagService {
         private alertController: AlertController,
     ) {
     }
+
+    // tslint:disable-next-line:variable-name
+    private _tags = new BehaviorSubject<Tag[]>([]);
 
     get tags() {
         return this._tags.asObservable();

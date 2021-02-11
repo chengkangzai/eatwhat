@@ -1,29 +1,29 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-    </ion-buttons>
-    <ion-title>Sign in</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+        </ion-buttons>
+        <ion-title>Sign in</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-grid>
-    <ion-row>
-      <ion-col offset-md="3" size-md="6">
-        <h2 class="ion-text-center">Eh? What to Eat huh</h2>
-        <ion-card color="medium">
-          <ion-card-content>
-            <ngx-auth-firebaseui (onError)="onAuthError($event)" (onSuccess)="onAuthSuccess($event)"
-                                  [providers]="providers.EmailAndPassword">
-            </ngx-auth-firebaseui>
-            <ngx-auth-firebaseui-providers (onError)="onAuthError($event)"
-                                           (onSuccess)="onAuthSuccess($event)" *ngIf="!isPhone"
-                                           [providers]="[providers.Github,providers.Google]">
-            </ngx-auth-firebaseui-providers>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+    <ion-grid>
+        <ion-row>
+            <ion-col offset-md="3" size-md="6">
+                <h2 class="ion-text-center">Eh? What to Eat huh</h2>
+                <ion-card color="medium">
+                    <ion-card-content>
+                        <ngx-auth-firebaseui (onError)="onAuthError($event)" (onSuccess)="onAuthSuccess($event)"
+                                             [providers]="providers.EmailAndPassword">
+                        </ngx-auth-firebaseui>
+                        <ngx-auth-firebaseui-providers (onError)="onAuthError($event)"
+                                                       (onSuccess)="onAuthSuccess($event)" *ngIf="!isPhone"
+                                                       [providers]="[providers.Github,providers.Google]">
+                        </ngx-auth-firebaseui-providers>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 
 </ion-content>

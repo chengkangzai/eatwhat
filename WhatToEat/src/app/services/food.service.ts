@@ -21,14 +21,14 @@ export interface FoodInterface {
 })
 export class FoodService {
 
-    // tslint:disable-next-line:variable-name
-    private _food = new BehaviorSubject<Food[]>([]);
-
     constructor(
         private firestore: AngularFirestore,
         private authService: AngularFireAuth,
     ) {
     }
+
+    // tslint:disable-next-line:variable-name
+    private _food = new BehaviorSubject<Food[]>([]);
 
     get food() {
         return this._food.asObservable();

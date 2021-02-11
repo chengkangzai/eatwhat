@@ -6,7 +6,7 @@
                 <ion-icon name="close" slot="icon-only"></ion-icon>
             </ion-button>
         </ion-buttons>
-        <ion-buttons slot="end" *ngIf="mode==='EDIT' ">
+        <ion-buttons *ngIf="mode==='EDIT' " slot="end">
             <ion-button (click)="onSubmitForm()" aria-label="Save Changes">
                 <ion-icon name="checkmark" slot="icon-only"></ion-icon>
             </ion-button>
@@ -18,7 +18,7 @@
     <ion-img [src]=this.imgSrc style="width: 25%;margin: auto"></ion-img>
     <ion-grid *ngIf="mode=='SHOW' ">
         <ion-row>
-            <ion-col size-lg="6" offset-lg="3" class="ion-text-center">
+            <ion-col class="ion-text-center" offset-lg="3" size-lg="6">
                 <div>🍕 Food : {{f.food}}</div>
                 <hr>
                 <div *ngIf="f.timestamp">
@@ -27,8 +27,8 @@
                 <hr>
                 <div *ngIf="this.tags">
                     Tags Section
-                    <ion-chip *ngFor="let tag of tags" #ionChip (click)="attach(tag)" outline="true"
-                              [color]="isAttachToFood(tag) ? 'success' : 'dark' ">
+                    <ion-chip #ionChip (click)="attach(tag)" *ngFor="let tag of tags" [color]="isAttachToFood(tag) ? 'success' : 'dark' "
+                              outline="true">
                         <ion-label>
                             <ion-icon [name]="isAttachToFood(tag) ?'checkmark-circle' : 'close-circle'"></ion-icon>
                             {{tag.name}}
@@ -42,15 +42,15 @@
 
     <ion-grid *ngIf="mode=='EDIT'">
         <ion-row>
-            <ion-col size-lg="6" offset-lg="3" class="ion-text-center">
+            <ion-col class="ion-text-center" offset-lg="3" size-lg="6">
                 <ion-title>Edit {{f.food}}</ion-title>
-                <form [formGroup]="form" (ngSubmit)="onSubmitForm()">
+                <form (ngSubmit)="onSubmitForm()" [formGroup]="form">
                     <ion-list>
                         <ion-item>
                             <ion-label position="floating">Food 🍕</ion-label>
-                            <ion-input type="text" formControlName="food"></ion-input>
+                            <ion-input formControlName="food" type="text"></ion-input>
                         </ion-item>
-                        <input type="submit" hidden>
+                        <input hidden type="submit">
                     </ion-list>
                 </form>
             </ion-col>

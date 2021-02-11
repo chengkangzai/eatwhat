@@ -1,21 +1,22 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 
-import { FeedbackPage } from './feedback.page';
+import {FeedbackPage} from './feedback.page';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: FeedbackPage
-  },
-  {
-    path: 'view',
-    loadChildren: () => import('./view/view.module').then( m => m.ViewPageModule)
-  }
+    {
+        path: '',
+        component: FeedbackPage
+    },
+    {
+        path: 'view',
+        loadChildren: () => import('./view/view.module').then(m => m.ViewPageModule)
+    }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule],
 })
-export class FeedbackPageRoutingModule {}
+export class FeedbackPageRoutingModule {
+}

@@ -2,10 +2,10 @@ import {Injectable} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {AuthService} from './auth.service';
 import firebase from 'firebase/app';
-import Timestamp = firebase.firestore.Timestamp;
 import {BehaviorSubject} from 'rxjs';
 import {Feedback} from '../model/feedback';
 import {map, tap} from 'rxjs/operators';
+import Timestamp = firebase.firestore.Timestamp;
 
 interface FeedbackInterface {
     id: string;
