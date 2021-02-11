@@ -14,6 +14,8 @@ import {FoodUIService} from '../../services/food-ui.service';
     styleUrls: ['food.page.scss']
 })
 export class FoodPage implements OnInit {
+    // TODO Search Food
+
     foods: Food[];
     foodSub: Subscription;
     isLoading = true;
@@ -69,13 +71,5 @@ export class FoodPage implements OnInit {
         setTimeout(() => {
             clearInterval(interval);
         }, Math.floor(Math.random() * 2000));
-    }
-
-    test() {
-        console.log('His');
-    }
-
-    todo() {
-        // Add Food with tags ?
     }
 }
