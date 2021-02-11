@@ -76,12 +76,19 @@ export class FoodComponent implements OnInit, OnDestroy {
     }
 
     async attach(tag: Tag) {
-        await this.tagService.relateToFood(this.f, tag);
-        const toast = await this.toaster.create({
-            message: 'Done',
-            duration: 1000
+        await this.tagService.relateToFood(this.f, tag).then(async () => {
+            const toast = await this.toaster.create({
+                message: 'Done',
+                duration: 1000
+            });
+            await toast.present();
+        }).catch(async () => {
+            const toast = await this.toaster.create({
+                message: 'Oops ! error occur, please contact developer on this regard',
+                duration: 1000
+            });
+            await toast.present();
         });
-        return await toast.present();
     }
 
     isAttachToFood(tag: Tag): boolean {
