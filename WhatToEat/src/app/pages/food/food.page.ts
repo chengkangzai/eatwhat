@@ -6,6 +6,7 @@ import {Subscription} from 'rxjs';
 import {Food} from '../../model/food';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ToastController} from '@ionic/angular';
+import {FoodUIService} from '../../services/food-ui.service';
 
 @Component({
     selector: 'app-tab1',
@@ -13,6 +14,8 @@ import {ToastController} from '@ionic/angular';
     styleUrls: ['food.page.scss']
 })
 export class FoodPage implements OnInit {
+    // TODO Search Food
+
     foods: Food[];
     foodSub: Subscription;
     isLoading = true;
@@ -21,10 +24,11 @@ export class FoodPage implements OnInit {
     form: FormGroup;
 
     constructor(
-        public foodService: FoodService,
+        private foodService: FoodService,
         private router: Router,
         private auth: AngularFireAuth,
         private toastController: ToastController,
+        public foodUIService: FoodUIService,
     ) {
     }
 

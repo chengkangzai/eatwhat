@@ -14,9 +14,14 @@ const routes: Routes = [
                 loadChildren: () => import('../food/food.module').then(m => m.FoodPageModule)
             },
             {
+                path: 'tags',
+                loadChildren: () => import('../tags/tags.module').then(m => m.TagsPageModule)
+            },
+            {
                 path: 'more',
                 loadChildren: () => import('../more/more.module').then(m => m.MorePageModule)
-            }, {
+            },
+            {
                 path: 'feedback',
                 loadChildren: () => import('../feedback/feedback.module').then(m => m.FeedbackPageModule)
             },

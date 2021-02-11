@@ -59,12 +59,12 @@ export class FeedbackService {
 
     async add(feedback: string) {
         const id = this.firestore.createId();
-        const email = this.authService.userData.email;
+        const uid = this.authService.userData.uid;
         return await this.firestore.collection('feedback').doc(id).set({
             id,
             feedback,
             timestamp: Timestamp.fromDate(new Date()),
-            user: email
+            user: uid
         });
     }
 }
