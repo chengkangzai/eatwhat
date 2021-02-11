@@ -4,19 +4,16 @@ import {BehaviorSubject} from 'rxjs';
 import {Food} from '../model/food';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {first, map, tap} from 'rxjs/operators';
-import {AlertController, IonItemSliding, ModalController, ToastController} from '@ionic/angular';
-import {FormGroup} from '@angular/forms';
 import firebase from 'firebase/app';
-import {FoodComponent} from '../components/food/food.component';
-import FirebaseError = firebase.FirebaseError;
 import Timestamp = firebase.firestore.Timestamp;
 
 
-interface FoodInterface {
+export interface FoodInterface {
     id: string;
     food: string;
     user: string;
     timestamp?: Timestamp;
+    tags?: string[];
 }
 
 @Injectable({
@@ -33,18 +30,23 @@ export class FoodService {
     ) {
     }
 
-
     get food() {
         return this._food.asObservable();
     }
 
     async fetch() {
         await this.authService.authState.pipe(first()).subscribe(user => {
-            return this.firestore.collection(`user/${user.uid}/food`).valueChanges({idField: 'id'}).pipe(
+            return this.firestore.collection<FoodInterface>(`user/${user.uid}/food`).valueChanges({idField: 'id'}).pipe(
                 map(resData => {
                     const temp = [];
-                    (resData as FoodInterface[]).forEach(data => {
-                        temp.push(new Food(data.id, data.food, data.user, (data.timestamp ? data.timestamp : null)));
+                    resData.forEach(data => {
+                        temp.push(new Food(
+                            data.id,
+                            data.food,
+                            data.user,
+                            (data.timestamp ? data.timestamp : null),
+                            (data.tags ? data.tags : null)
+                        ));
                     });
                     return temp;
                 })
