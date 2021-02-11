@@ -3,6 +3,7 @@ import {FoodService} from '../../../services/food.service';
 import {Food} from '../../../model/food';
 import {Subscription} from 'rxjs';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FoodUIService} from '../../../services/food-ui.service';
 
 @Component({
     selector: 'app-view',
@@ -19,7 +20,8 @@ export class ViewPage implements OnInit, OnDestroy {
     limit = 10;
 
     constructor(
-        public foodService: FoodService,
+        private foodService: FoodService,
+        public foodUIService: FoodUIService
     ) {
     }
 
