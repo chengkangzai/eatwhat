@@ -2,9 +2,10 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthService} from '../../services/auth.service';
 import {RoleService} from '../../services/role.service';
-import {AlertController, ModalController} from '@ionic/angular';
+import {AlertController, ModalController, ToastController} from '@ionic/angular';
 import {Subscription} from 'rxjs';
 import {AboutComponent} from '../../components/about/about.component';
+import {AngularFireFunctions} from '@angular/fire/functions';
 
 @Component({
     selector: 'app-more',
@@ -21,11 +22,14 @@ export class MorePage implements OnInit, OnDestroy {
         private role: RoleService,
         private alertController: AlertController,
         private modalController: ModalController,
+        private functions: AngularFireFunctions,
+        private toaster: ToastController
     ) {
     }
 
     ngOnInit() {
         this.isMasterSub = this.role.isMaster().subscribe(master => {
+            console.log(master);
             this.isMaster = master;
         });
 
@@ -70,5 +74,33 @@ export class MorePage implements OnInit, OnDestroy {
             component: AboutComponent,
         });
         await modal.present();
+    }
+
+    async userMgn() {
+        const alert = await this.alertController.create({
+            message: 'Who you wish to be an master also ?',
+            inputs: [{
+                name: 'email',
+                placeholder: 'Type the Email here',
+                type: 'email'
+            }],
+            buttons: [{
+                text: 'Cancel',
+                role: 'cancel'
+            }, {
+                text: 'Add',
+                handler: input => {
+                    // TODO ;)
+                    const callable = this.functions.httpsCallable('addMaster');
+                    callable({email: input.email}).subscribe(async res => {
+                        const toast = await this.toaster.create({
+                            message: res
+                        });
+                        await toast.present();
+                    });
+                }
+            }]
+        });
+        await alert.present();
     }
 }
