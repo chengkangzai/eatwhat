@@ -33,10 +33,10 @@ export class FeedbackService {
     }
 
     fetch() {
-        return this.firestore.collectionGroup('feedback').valueChanges({idField: 'id'}).pipe(
+        return this.firestore.collection<FeedbackInterface>('feedback').valueChanges({idField: 'id'}).pipe(
             map(resData => {
                 const temp = [];
-                (resData as FeedbackInterface[]).forEach(data => {
+                resData.forEach(data => {
                     temp.push(new Feedback(data.id, data.feedback, data.timestamp, data.user));
                 });
                 return temp;
