@@ -18,6 +18,7 @@ import {AboutComponent} from './components/about/about.component';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {FoodComponent} from './components/food/food.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import {AngularFireFunctionsModule} from '@angular/fire/functions';
 
 @NgModule({
     declarations: [AppComponent, AboutComponent, FoodComponent],
@@ -40,6 +41,7 @@ import {ReactiveFormsModule} from '@angular/forms';
             toastMessageOnAuthSuccess: false,
             toastMessageOnAuthError: false
         }),
+        AngularFireFunctionsModule,
         BrowserAnimationsModule,
         ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
         ReactiveFormsModule
