@@ -40,7 +40,7 @@ export class ViewPage implements OnInit, OnDestroy {
                     this.isLoading = false;
                 });
             } else {
-                this.router.navigateByUrl('tabs/more');
+                await this.router.navigateByUrl('tabs/more');
             }
         });
     }

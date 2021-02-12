@@ -26,7 +26,7 @@ export class RoleService {
         return this.getUser().pipe(switchMap(async User => {
             if (User) { // check are user is logged in
                 const token = await User.getIdTokenResult();
-                return !!token.claims.master;
+                return !!token.claims.isMaster;
             } else {
                 return false;
             }

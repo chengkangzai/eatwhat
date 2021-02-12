@@ -62,9 +62,7 @@ export class TagsPage implements OnInit {
             return;
         }
 
-        this.tagService.add(new Tag('', this.form.value.tag, Timestamp.now())).then(res => {
-            console.log(res);
-        });
+        await this.tagService.add(new Tag('', this.form.value.tag, Timestamp.now()));
     }
 
     async onShow(tag: Tag) {
@@ -109,10 +107,7 @@ export class TagsPage implements OnInit {
     }
 
     async onDelete(tag: Tag, itemSliding: IonItemSliding) {
-        console.log(tag.id);
-        this.tagService.delete(tag).then(res => {
-            console.log(res);
-        });
+        await this.tagService.delete(tag);
         await itemSliding.close();
     }
 

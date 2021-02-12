@@ -27,7 +27,9 @@
                 <hr>
                 <div *ngIf="this.tags">
                     Tags Section
-                    <ion-chip #ionChip (click)="attach(tag)" *ngFor="let tag of tags" [color]="isAttachToFood(tag) ? 'success' : 'dark' "
+                    <hr>
+                    <ion-chip #ionChip (click)="attach(tag)" *ngFor="let tag of tags"
+                              [color]="isAttachToFood(tag) ? 'success' : 'dark' "
                               outline="true">
                         <ion-label>
                             <ion-icon [name]="isAttachToFood(tag) ?'checkmark-circle' : 'close-circle'"></ion-icon>
