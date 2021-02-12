@@ -29,7 +29,6 @@ export class MorePage implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.isMasterSub = this.role.isMaster().subscribe(master => {
-            console.log(master);
             this.isMaster = master;
         });
 
