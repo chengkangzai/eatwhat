@@ -22,7 +22,7 @@
     </ion-grid>
 
 
-    <ion-grid *ngIf="!isLoading  && feedbacks.length <=0" class="ion-text-center horizontalCenterContainer">
+    <ion-grid *ngIf="!isLoading  && feedbacks.length <= 0" class="ion-text-center horizontalCenterContainer">
         <ion-row class="ion-align-items-center">
             <ion-col>
                 <p style="text-align: center"> Hurrays There is no any Feedback </p>
@@ -31,11 +31,12 @@
         </ion-row>
     </ion-grid>
 
-    <ion-grid *ngIf="!isLoading">
+    <ion-grid *ngIf="!isLoading && feedbacks.length > 0 ">
         <ion-row>
             <ion-col offset-sm="3" size-sm="6">
-                <ion-list *ngIf="feedbacks.length > 0 ">
-                    <ion-item-sliding #itemSliding *ngFor="let f of feedbacks">
+                <ion-searchbar [(ngModel)]="filterTerm" animated="true" placeholder="Search..."></ion-searchbar>
+                <ion-list>
+                    <ion-item-sliding #itemSliding *ngFor="let f of feedbacks |filter:filterTerm">
                         <ion-item (click)="onShow(f,itemSliding)" button detail>
                             <ion-label>
                                 <h2>{{f.feedback}}</h2>
