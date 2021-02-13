@@ -3,19 +3,20 @@ import * as admin from 'firebase-admin';
 
 admin.initializeApp();
 
-exports.addMaster = functions.https.onCall(async (data, context) => {
-    if (context.auth?.token.isMaster) {
-        return {
-            error: 'Damn you are not Master how can you add Master la'
-        };
-    }
-    const email = data.email;
-    return grantMasterRole(email).then(() => {
-        return {
-            message: `Done ! ${email} is Master now`,
-        };
+exports.addMaster = functions.region('asia-northeast3').https
+    .onCall(async (data, context) => {
+        if (context.auth?.token.isMaster !== true) {
+            return {
+                error: 'Damn you are not Master how can you add Master la',
+            };
+        }
+        const email = data.email;
+        return grantMasterRole(email).then(() => {
+            return {
+                message: `Done ! ${email} is Master now`,
+            };
+        });
     });
-});
 
 async function grantMasterRole(email: string): Promise<void> {
     const user = await admin.auth().getUserByEmail(email);

@@ -18,7 +18,7 @@ import {AboutComponent} from './components/about/about.component';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {FoodComponent} from './components/food/food.component';
 import {ReactiveFormsModule} from '@angular/forms';
-import {AngularFireFunctionsModule} from '@angular/fire/functions';
+import {AngularFireFunctionsModule, REGION} from '@angular/fire/functions';
 
 @NgModule({
     declarations: [AppComponent, AboutComponent, FoodComponent],
@@ -49,7 +49,8 @@ import {AngularFireFunctionsModule} from '@angular/fire/functions';
     providers: [
         StatusBar,
         SplashScreen,
-        {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
+        {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
+        {provide: REGION, useValue: 'asia-northeast3'}
     ],
     bootstrap: [AppComponent]
 })
