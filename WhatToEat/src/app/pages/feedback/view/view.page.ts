@@ -14,6 +14,7 @@ import {RoleService} from '../../../services/role.service';
 })
 export class ViewPage implements OnInit, OnDestroy {
 
+    filterTerm: string;
     feedbacks: Feedback[];
     feedbackSub: Subscription;
     isLoading = true;
