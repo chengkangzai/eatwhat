@@ -15,7 +15,7 @@ export class ViewPage implements OnInit, OnDestroy {
     filterTerm: string;
     form: FormGroup;
     foods: Food[];
-    foodSub: Subscription;
+    food$: Subscription;
     isLoading = true;
 
     limit = 10;
@@ -27,7 +27,7 @@ export class ViewPage implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.foodSub = this.foodService.food.subscribe((food) => {
+        this.food$ = this.foodService.food.subscribe((food) => {
             this.foods = food;
         });
         this.foodService.fetch().then(() => {
@@ -42,8 +42,8 @@ export class ViewPage implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        if (this.foodSub) {
-            this.foodSub.unsubscribe();
+        if (this.food$) {
+            this.food$.unsubscribe();
         }
     }
 

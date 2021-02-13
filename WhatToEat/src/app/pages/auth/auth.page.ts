@@ -16,7 +16,7 @@ import User = firebase.User;
 })
 export class AuthPage {
     providers = AuthProvider;
-    authSub: Subscription;
+    auth$: Subscription;
     isPhone = false;
 
     constructor(
@@ -36,7 +36,7 @@ export class AuthPage {
             this.isPhone = true;
         }
 
-        this.authSub = this.afAuth.authState.subscribe(async user => {
+        this.auth$ = this.afAuth.authState.subscribe(async user => {
             if (user) {
                 await this.router.navigateByUrl('tabs/food');
             }
@@ -44,8 +44,8 @@ export class AuthPage {
     }
 
     ionViewWillLeave() {
-        if (this.authSub) {
-            this.authSub.unsubscribe();
+        if (this.auth$) {
+            this.auth$.unsubscribe();
         }
     }
 

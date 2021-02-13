@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {FoodService} from '../../services/food.service';
@@ -13,11 +13,10 @@ import {FoodUIService} from '../../services/food-ui.service';
     templateUrl: 'food.page.html',
     styleUrls: ['food.page.scss']
 })
-export class FoodPage implements OnInit {
-    // TODO Search Food
+export class FoodPage implements OnInit, OnDestroy {
 
     foods: Food[];
-    foodSub: Subscription;
+    food$: Subscription;
     isLoading = true;
     selectedFood: Food;
 
@@ -37,7 +36,7 @@ export class FoodPage implements OnInit {
     }
 
     ngOnInit() {
-        this.foodSub = this.foodService.food.subscribe((foods) => {
+        this.food$ = this.foodService.food.subscribe((foods) => {
             this.foods = foods;
         });
         this.foodService.fetch().then(() => {
@@ -50,6 +49,12 @@ export class FoodPage implements OnInit {
                 validators: [Validators.required]
             })
         });
+    }
+
+    ngOnDestroy() {
+        if (this.food$) {
+            this.food$.unsubscribe();
+        }
     }
 
     doRefresh($event) {
