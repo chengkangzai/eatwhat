@@ -92,7 +92,6 @@ export class MorePage implements OnInit, OnDestroy {
                     // TODO ;)
                     const callable = this.functions.httpsCallable('addMaster');
                     callable({email: input.email}).subscribe(async res => {
-                        console.log(res);
                         const toast = await this.toaster.create({
                             message: res
                         });
