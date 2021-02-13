@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AlertController, IonItemSliding, ToastController} from '@ionic/angular';
 import {TagService} from '../../services/tag.service';
@@ -6,6 +6,7 @@ import {Tag} from '../../model/tag';
 import firebase from 'firebase/app';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {Router} from '@angular/router';
+import {Subscription} from 'rxjs';
 import Timestamp = firebase.firestore.Timestamp;
 
 @Component({
@@ -13,9 +14,10 @@ import Timestamp = firebase.firestore.Timestamp;
     templateUrl: './tags.page.html',
     styleUrls: ['./tags.page.scss'],
 })
-export class TagsPage implements OnInit {
+export class TagsPage implements OnInit, OnDestroy {
     // TODO Find Food by tags!
     tags: Tag[];
+    tags$: Subscription;
     isLoading = false;
 
     form: FormGroup;
@@ -37,10 +39,16 @@ export class TagsPage implements OnInit {
             })
         });
 
-        this.tagService.tags.subscribe(tags => {
+        this.tags$ = this.tagService.tags.subscribe(tags => {
             this.tags = tags;
         });
         this.tagService.fetch().then(() => this.isLoading = false);
+    }
+
+    ngOnDestroy() {
+        if (this.tags$) {
+            this.tags$.unsubscribe();
+        }
     }
 
     doRefresh($event) {

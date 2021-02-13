@@ -14,7 +14,7 @@ import {AngularFireFunctions} from '@angular/fire/functions';
 })
 export class MorePage implements OnInit, OnDestroy {
     isMaster = false;
-    isMasterSub: Subscription;
+    isMaster$: Subscription;
 
     constructor(
         private router: Router,
@@ -28,21 +28,21 @@ export class MorePage implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.isMasterSub = this.role.isMaster().subscribe(master => {
+        this.isMaster$ = this.role.isMaster().subscribe(master => {
             this.isMaster = master;
         });
 
     }
 
     ngOnDestroy() {
-        if (this.isMasterSub) {
-            this.isMasterSub.unsubscribe();
+        if (this.isMaster$) {
+            this.isMaster$.unsubscribe();
         }
     }
 
     ionViewWillLeave() {
-        if (this.isMasterSub) {
-            this.isMasterSub.unsubscribe();
+        if (this.isMaster$) {
+            this.isMaster$.unsubscribe();
         }
     }
 

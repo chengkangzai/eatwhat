@@ -18,9 +18,9 @@ export class FoodComponent implements OnInit, OnDestroy {
     @Input() mode: 'EDIT' | 'SHOW';
 
     tags: Tag[];
-    tagsSub: Subscription;
+    tags$: Subscription;
     f: Food;
-    fSub: Subscription;
+    f$: Subscription;
     imgSrc: string;
     form: FormGroup;
 
@@ -33,7 +33,7 @@ export class FoodComponent implements OnInit, OnDestroy {
     }
 
     async ngOnInit() {
-        this.fSub = this.foodService.food.subscribe(f => {
+        this.f$ = this.foodService.food.subscribe(f => {
             this.f = f.filter((ff) => {
                 return ff.id === this.food.id;
             })[0];
@@ -46,7 +46,7 @@ export class FoodComponent implements OnInit, OnDestroy {
         });
 
 
-        this.tagsSub = this.tagService.tags.subscribe(tag => {
+        this.tags$ = this.tagService.tags.subscribe(tag => {
             this.tags = tag;
         });
         await this.tagService.fetch();
@@ -54,11 +54,11 @@ export class FoodComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        if (this.tagsSub) {
-            this.tagsSub.unsubscribe();
+        if (this.tags$) {
+            this.tags$.unsubscribe();
         }
-        if (this.fSub) {
-            this.fSub.unsubscribe();
+        if (this.f$) {
+            this.f$.unsubscribe();
         }
     }
 

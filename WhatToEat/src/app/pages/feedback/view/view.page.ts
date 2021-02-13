@@ -15,9 +15,9 @@ import {RoleService} from '../../../services/role.service';
 export class ViewPage implements OnInit, OnDestroy {
 
     feedbacks: Feedback[];
-    feedbackSub: Subscription;
+    feedback$: Subscription;
     isLoading = true;
-    isMasterSub: Subscription;
+    isMaster$: Subscription;
 
     constructor(
         private feedbackService: FeedbackService,
@@ -31,9 +31,9 @@ export class ViewPage implements OnInit, OnDestroy {
     async ngOnInit() {
         this.isLoading = true;
 
-        this.isMasterSub = this.role.isMaster().subscribe(async isMaster => {
+        this.isMaster$ = this.role.isMaster().subscribe(async isMaster => {
             if (isMaster) {
-                this.feedbackSub = this.feedbackService.feedback.subscribe((feed) => {
+                this.feedback$ = this.feedbackService.feedback.subscribe((feed) => {
                     this.feedbacks = feed;
                 });
                 this.feedbackService.fetch().subscribe(() => {
@@ -46,11 +46,11 @@ export class ViewPage implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        if (this.feedbackSub) {
-            this.feedbackSub.unsubscribe();
+        if (this.feedback$) {
+            this.feedback$.unsubscribe();
         }
-        if (this.isMasterSub) {
-            this.isMasterSub.unsubscribe();
+        if (this.isMaster$) {
+            this.isMaster$.unsubscribe();
         }
     }
 
