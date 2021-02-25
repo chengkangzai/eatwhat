@@ -20,6 +20,11 @@ const routes: Routes = [
         ...canActivate(redirectLoggedInToItems),
         loadChildren: () => import('./pages/auth/auth.module').then(m => m.AuthPageModule)
     },
+    {
+        path: 'about/privacy',
+        loadChildren: () => import('./pages/about/privacy/privacy.module').then(m => m.PrivacyPageModule)
+    },
+
 ];
 
 @NgModule({

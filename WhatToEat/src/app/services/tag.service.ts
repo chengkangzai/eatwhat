@@ -119,11 +119,11 @@ export class TagService {
             const f: Food = JSON.parse(JSON.stringify(food));
             const tagRef = `user/${user.uid}/tags/${tag.id}`;
 
-            f.tags = f.tags === null
-                ? [tagRef]
-                : f.tags.includes(tagRef)
-                    ? f.tags.filter(item => item !== tagRef)
-                    : f.tags.concat(tagRef);
+            f.tags = f.tags === null // if the tags is null
+                ? [tagRef] // initiate as array
+                : f.tags.includes(tagRef) // if its not null and it include tag Reference
+                    ? f.tags.filter(item => item !== tagRef) // return the array but without that reference
+                    : f.tags.concat(tagRef); // If it do not include tag Reference, return array that join with that Reference
             this.foodService.update(food, f);
         });
     }

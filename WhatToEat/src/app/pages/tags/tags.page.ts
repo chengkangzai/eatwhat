@@ -71,6 +71,7 @@ export class TagsPage implements OnInit, OnDestroy {
         }
 
         await this.tagService.add(new Tag('', this.form.value.tag, Timestamp.now()));
+        this.form.reset();
     }
 
     async onShow(tag: Tag) {
