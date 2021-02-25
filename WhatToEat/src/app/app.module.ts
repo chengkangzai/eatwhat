@@ -39,7 +39,7 @@ import {AngularFireFunctionsModule, REGION} from '@angular/fire/functions';
             enableEmailVerification: true,
             guardProtectedRoutesUntilEmailIsVerified: false,
             toastMessageOnAuthSuccess: false,
-            toastMessageOnAuthError: false
+            toastMessageOnAuthError: false,
         }),
         AngularFireFunctionsModule,
         BrowserAnimationsModule,

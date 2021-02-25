@@ -14,7 +14,7 @@
                 <ion-card color="medium">
                     <ion-card-content>
                         <ngx-auth-firebaseui (onError)="onAuthError($event)" (onSuccess)="onAuthSuccess($event)"
-                                             [providers]="providers.EmailAndPassword">
+                                             [providers]="providers.EmailAndPassword" privacyPolicyUrl="/about/privacy">
                         </ngx-auth-firebaseui>
                         <ngx-auth-firebaseui-providers (onError)="onAuthError($event)"
                                                        (onSuccess)="onAuthSuccess($event)" *ngIf="!isPhone"
