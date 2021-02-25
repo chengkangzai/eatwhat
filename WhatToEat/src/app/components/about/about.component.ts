@@ -8,7 +8,7 @@ import {ModalController} from '@ionic/angular';
 })
 export class AboutComponent implements OnInit {
 
-    version = '1.0.0';
+    version = '1.0.1';
 
     constructor(
         private modalController: ModalController
