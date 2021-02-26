@@ -50,7 +50,7 @@ export class FoodComponent implements OnInit, OnDestroy {
             this.tags = tag;
         });
         await this.tagService.fetch();
-        this.imgSrc = `https://ui-avatars.com/api/?name=${this.food.food}&rounded=true&background=random&size=16`;
+        this.imgSrc = `https://ui-avatars.com/api/?name=${this.food.food}&rounded=true&background=random&size=64`;
     }
 
     ngOnDestroy() {
