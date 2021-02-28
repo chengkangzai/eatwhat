@@ -80,10 +80,11 @@ export class TagService {
             this.firestore.collection(`user/${user.uid}/food`,
                 ref => ref.where('tags', 'array-contains', tagRef)).valueChanges().pipe(first())
                 .subscribe(async (doc) => {
+                    console.log(doc);
                     if (doc.length !== 0) {
                         const alert = await this.alertController.create({
                             message: `Tag is current using by :
-                        ${doc.map((element: FoodInterface) => element.food).join(',')} Kindly remove the tag from the food first`,
+                        ${doc.map((element: FoodInterface) => element.food).join(',')}. Kindly remove the tag from the food first`,
                             buttons: ['OK']
                         });
                         await alert.present();
