@@ -5,7 +5,7 @@ import {FoodService} from '../../services/food.service';
 import {Subscription} from 'rxjs';
 import {Food} from '../../model/food';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {ToastController} from '@ionic/angular';
+import {AlertController, ToastController} from '@ionic/angular';
 import {FoodUIService} from '../../services/food-ui.service';
 
 @Component({
@@ -27,6 +27,7 @@ export class FoodPage implements OnInit, OnDestroy {
         private router: Router,
         private auth: AngularFireAuth,
         private toastController: ToastController,
+        private alertController: AlertController,
         public foodUIService: FoodUIService,
     ) {
     }
@@ -79,8 +80,16 @@ export class FoodPage implements OnInit, OnDestroy {
             this.selectedFood = this.foods[Math.floor(Math.random() * this.foods.length)];
         }, 50);
 
-        setTimeout(() => {
+        setTimeout(async () => {
             clearInterval(interval);
+            const alert = await this.alertController.create({
+                message: this.selectedFood.food + ' is selected !',
+                buttons: [{
+                    text: 'OK',
+                    role: 'cancel',
+                }]
+            });
+            await alert.present();
         }, Math.floor(Math.random() * 2000));
     }
 }
