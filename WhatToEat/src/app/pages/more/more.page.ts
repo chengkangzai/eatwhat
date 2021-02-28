@@ -46,11 +46,7 @@ export class MorePage implements OnInit, OnDestroy {
         }
     }
 
-    async onSignOut() {
-        await this.authService.SignOut().then(() => this.router.navigateByUrl('/auth'));
-    }
-
-    async Logout() {
+    async logout() {
         const alert = await this.alertController.create({
             header: 'Warning',
             message: 'Are you sure you want to log out ?',

@@ -3,8 +3,6 @@
         <ion-title>
             More Page
         </ion-title>
-        <ngx-auth-firebaseui-avatar (onSignOut)="onSignOut()" [canDeleteAccount]="false" [canEditAccount]="false"
-                                    slot="end"></ngx-auth-firebaseui-avatar>
     </ion-toolbar>
 </ion-header>
 
@@ -17,7 +15,7 @@
                         <ion-icon name="bug" slot="start"></ion-icon>
                         <ion-label>Make Feedback</ion-label>
                     </ion-item>
-                    <ion-item (click)="Logout()" button detail>
+                    <ion-item (click)="logout()" button detail>
                         <ion-icon name="log-out" slot="start"></ion-icon>
                         <ion-label>Log Out</ion-label>
                     </ion-item>
