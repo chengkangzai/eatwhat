@@ -38,10 +38,17 @@
         <ion-row *ngIf="!tags || tags.length <= 0">
             <ion-col class="ion-text-center" offset-lg="3" offset-md="2" size-lg="6" size-md="8">
                 <ion-card>
-                    <ion-card-title class="ion-padding-horizontal">Instruction ✨✨</ion-card-title>
+                    <ion-card-title class="ion-padding-vertical ion-padding-horizontal">Instruction ✨✨</ion-card-title>
                     <ion-card-subtitle class="mat-h3 ion-text-wrap ion-text-capitalize">
                         Label is a good way of manipulate the behaviour to find intended/filtered result. 🎈
                     </ion-card-subtitle>
+                    <ion-card-content>
+                        <ion-list>
+                            <ion-item>1. Add your tag by typing a tag </ion-item>
+                            <ion-item>2. Open your food detail by tapping your food 🍕 </ion-item>
+                            <ion-item>3. Tap the tag to attach the tag to the food 🍕</ion-item>
+                        </ion-list>
+                    </ion-card-content>
                 </ion-card>
             </ion-col>
         </ion-row>
