@@ -7,6 +7,7 @@ import {Food} from '../../model/food';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AlertController, ToastController} from '@ionic/angular';
 import {FoodUIService} from '../../services/food-ui.service';
+import {first} from 'rxjs/operators';
 
 @Component({
     selector: 'app-tab1',
@@ -30,10 +31,6 @@ export class FoodPage implements OnInit, OnDestroy {
         private alertController: AlertController,
         public foodUIService: FoodUIService,
     ) {
-    }
-
-    async onSignOut() {
-        await this.auth.signOut().then(() => this.router.navigateByUrl('/auth'));
     }
 
     ngOnInit() {
@@ -83,7 +80,8 @@ export class FoodPage implements OnInit, OnDestroy {
         setTimeout(async () => {
             clearInterval(interval);
             const alert = await this.alertController.create({
-                message: this.selectedFood.food + ' is selected !',
+                header: this.selectedFood.food + '🎉🎉🎉',
+                // message: this.selectedFood.food + ' is selected ! ',
                 buttons: [{
                     text: 'OK',
                     role: 'cancel',

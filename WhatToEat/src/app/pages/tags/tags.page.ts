@@ -57,10 +57,6 @@ export class TagsPage implements OnInit, OnDestroy {
         });
     }
 
-    async onSignOut() {
-        await this.auth.signOut().then(() => this.router.navigateByUrl('/auth'));
-    }
-
     async onSubmitForm() {
         if (this.form.invalid) {
             await this.alertController.create({
