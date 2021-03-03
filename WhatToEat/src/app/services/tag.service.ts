@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, Observable, Subscription} from 'rxjs';
 import {Tag} from '../model/tag';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {first, map, tap} from 'rxjs/operators';
@@ -33,12 +33,18 @@ export class TagService {
     // tslint:disable-next-line:variable-name
     private _tags = new BehaviorSubject<Tag[]>([]);
 
-    get tags() {
+    /**
+     * Get the tag as an observable
+     */
+    get tags(): Observable<Tag[]> {
         return this._tags.asObservable();
     }
 
-    async fetch() {
-        this.authService.authState.pipe(first()).subscribe(user => {
+    /**
+     * fetch the data from firestore
+     */
+    async fetch(): Promise<Subscription> {
+        return this.authService.authState.pipe(first()).subscribe(user => {
             return this.firestore.collection<TagsInterface>(`user/${user.uid}/tags`).valueChanges({idField: 'id'}).pipe(
                 map(resData => {
                     const temp = [];
@@ -54,7 +60,12 @@ export class TagService {
         });
     }
 
-    async add(tag: Tag) {
+    /**
+     * Add an tag to firestore
+     *
+     * @param tag the Tag object that need to be add
+     */
+    async add(tag: Tag): Promise<Subscription> {
         const id = this.firestore.createId();
         return this.authService.authState.subscribe(user => {
             tag.id = id;
@@ -65,7 +76,13 @@ export class TagService {
         });
     }
 
-    async update(oriTag: Tag, newTag: Tag) {
+    /**
+     * Update the tag
+     *
+     * @param oriTag original Tag Object (id as doc Reference)
+     * @param newTag new Tag object
+     */
+    async update(oriTag: Tag, newTag: Tag): Promise<Subscription> {
         return this.authService.authState.subscribe(user => {
             newTag.timestamp = Timestamp.now();
             return this.firestore.doc(`user/${user.uid}/tags/${oriTag.id}`).set(
@@ -74,10 +91,15 @@ export class TagService {
         });
     }
 
-    async delete(tag: Tag) {
+    /**
+     * delete a tag
+     *
+     * @param tag tag that needed to deleted
+     */
+    async delete(tag: Tag): Promise<Subscription> {
         return this.authService.authState.pipe(first()).subscribe(async user => {
             const tagRef = `user/${user.uid}/tags/${tag.id}`;
-            this.firestore.collection(`user/${user.uid}/food`,
+            return this.firestore.collection(`user/${user.uid}/food`,
                 ref => ref.where('tags', 'array-contains', tagRef)).valueChanges().pipe(first())
                 .subscribe(async (doc) => {
                     console.log(doc);
@@ -93,31 +115,16 @@ export class TagService {
                     await this.firestore.doc(`user/${user.uid}/tags/${tag.id}`).delete();
                 });
         });
-
-
     }
 
-    async query(name: string) {
-        // Do we need this ? Hmm
-        await this.authService.authState.pipe(first()).subscribe(user => {
-            return this.firestore.collection<TagsInterface>(`user/${user.uid}/tags`, ref => ref.where('name', '==', name))
-                .valueChanges({idField: 'id'}).pipe(
-                    map(resData => {
-                        const temp = [];
-                        resData.forEach(data => {
-                            temp.push(new Tag(data.id, data.name, data.timestamp));
-                        });
-                        return temp;
-                    })
-                    , tap(tag => {
-                        return this._tags.next(tag);
-                    })
-                ).subscribe();
-        });
-    }
-
-    async relateToFood(food: Food, tag: Tag) {
-        this.authService.authState.pipe(first()).subscribe(user => {
+    /**
+     * attach a tag to a food
+     *
+     * @param food food that need to be related
+     * @param tag tag that need to be related
+     */
+    async relateToFood(food: Food, tag: Tag): Promise<Subscription> {
+        return this.authService.authState.pipe(first()).subscribe(user => {
             const f: Food = JSON.parse(JSON.stringify(food));
             const tagRef = `user/${user.uid}/tags/${tag.id}`;
 

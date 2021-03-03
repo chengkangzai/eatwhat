@@ -20,11 +20,16 @@ export class FoodUIService {
     ) {
     }
 
-    async onEdit(f: Food, itemSliding: IonItemSliding) {
+    /**
+     * Handle the UI when the food in on Edit
+     * @param food the food that need to Edit
+     * @param itemSliding the sliding item of the food
+     */
+    async onEdit(food: Food, itemSliding: IonItemSliding): Promise<void> {
         const modal = await this.modalController.create({
             component: FoodComponent,
             componentProps: {
-                food: f,
+                food,
                 mode: 'EDIT'
             },
             backdropDismiss: false,
@@ -33,11 +38,16 @@ export class FoodUIService {
         await itemSliding.close();
     }
 
-    async onShow(f: Food, itemSliding: IonItemSliding) {
+    /**
+     * Handle the UI when the food in on Show
+     * @param food the food that need to Show
+     * @param itemSliding the sliding item of the food
+     */
+    async onShow(food: Food, itemSliding: IonItemSliding): Promise<void> {
         const modal = await this.modalController.create({
             component: FoodComponent,
             componentProps: {
-                food: f,
+                food,
                 mode: 'SHOW'
             }
         });
@@ -45,7 +55,11 @@ export class FoodUIService {
         await itemSliding.close();
     }
 
-    async onSubmitForm(form: FormGroup) {
+    /**
+     * Handle the UI when the food in on SubmitForm
+     * @param form the form where food is submitted
+     */
+    async onSubmitForm(form: FormGroup): Promise<void> {
         if (form.invalid) {
             const alert = await this.alertController.create({
                 message: 'Please add your food into text input ',
@@ -58,35 +72,40 @@ export class FoodUIService {
             return;
         }
 
-        await this.foodService.add(new Food('', form.value.food, '')).then(async () => {
-            const toast = await this.toaster.create({
-                message: `${form.value.food} Added`,
-                duration: 1000
+        await this.foodService.add(new Food('', form.value.food, ''))
+            .then(async () => {
+                const toast = await this.toaster.create({
+                    message: `${form.value.food} Added`,
+                    duration: 1000
+                });
+                await toast.present();
+                form.reset();
+            }).catch(async (err: FirebaseError) => {
+                const toast = await this.toaster.create({
+                    message: `Error Occur! Please contact developer on this regard ${err.message}`,
+                    duration: 1000,
+                    color: 'danger'
+                });
+                await toast.present();
             });
-            await toast.present();
-            form.reset();
-        }).catch(async (err: FirebaseError) => {
-            const toast = await this.toaster.create({
-                message: `Error Occur! Please contact developer on this regard ${err.message}`,
-                duration: 1000,
-                color: 'danger'
-            });
-            await toast.present();
-        });
     }
 
-
-    async onDelete(f: Food, itemSliding: IonItemSliding) {
+    /**
+     * Handle the UI when the food in on Delete
+     * @param food the food that need to Delete
+     * @param itemSliding the sliding item of the food
+     */
+    async onDelete(food: Food, itemSliding: IonItemSliding): Promise<void> {
         const alert = await this.alertController.create({
             header: 'Delete',
-            message: `are you sure you want to delete the Food '${f.food}' ?`,
+            message: `are you sure you want to delete the Food '${food.food}' ?`,
             buttons: [{
                 text: 'Cancel',
                 role: 'cancel'
             }, {
                 text: 'Delete',
                 handler: () => {
-                    this.foodService.delete(f);
+                    this.foodService.delete(food);
                 }
             }]
         });

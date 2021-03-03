@@ -57,7 +57,7 @@ export class MorePage implements OnInit, OnDestroy {
                 text: 'Log Out',
                 role: 'destructive',
                 handler: async () => {
-                    await this.authService.SignOut().then(() => this.router.navigateByUrl('/auth'));
+                    await this.authService.signOut().then(() => this.router.navigateByUrl('/auth'));
                 }
             }]
         });
@@ -85,7 +85,6 @@ export class MorePage implements OnInit, OnDestroy {
             }, {
                 text: 'Add',
                 handler: input => {
-                    // TODO ;)
                     const callable = this.functions.httpsCallable('addMaster');
                     callable({email: input.email}).subscribe(async res => {
                         const toast = await this.toaster.create({

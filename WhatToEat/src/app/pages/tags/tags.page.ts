@@ -15,7 +15,6 @@ import Timestamp = firebase.firestore.Timestamp;
     styleUrls: ['./tags.page.scss'],
 })
 export class TagsPage implements OnInit, OnDestroy {
-    // TODO Find Food by tags!
     tags: Tag[];
     tags$: Subscription;
     isLoading = false;

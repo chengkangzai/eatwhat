@@ -14,7 +14,11 @@ export class RoleService {
     ) {
     }
 
-    getUser(): Observable<firebase.User> {
+    /**
+     * Get the user as on observable
+     * @private
+     */
+    private getUser(): Observable<firebase.User> {
         return this.auth.authState.pipe(
             switchMap(async (User) => {
                 return User;
@@ -22,9 +26,13 @@ export class RoleService {
         );
     }
 
-    isMaster() {
+    /**
+     * Check if the user have the claim of master
+     *
+     */
+    isMaster(): Observable<boolean> {
         return this.getUser().pipe(switchMap(async User => {
-            if (User) { // check are user is logged in
+            if (User) {
                 const token = await User.getIdTokenResult();
                 return !!token.claims.isMaster;
             } else {

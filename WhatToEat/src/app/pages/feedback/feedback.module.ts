@@ -11,7 +11,6 @@ import {FeedbackPage} from './feedback.page';
 @NgModule({
     imports: [
         CommonModule,
-        // FormsModule,
         ReactiveFormsModule,
         IonicModule,
         FeedbackPageRoutingModule

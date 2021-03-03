@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {AuthService} from './auth.service';
 import firebase from 'firebase/app';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, Observable, Subscription} from 'rxjs';
 import {Feedback} from '../model/feedback';
 import {map, tap} from 'rxjs/operators';
 import Timestamp = firebase.firestore.Timestamp;
@@ -28,11 +28,11 @@ export class FeedbackService {
     // tslint:disable-next-line:variable-name
     private _feedback = new BehaviorSubject<Feedback[]>([]);
 
-    get feedback() {
+    get feedback(): Observable<Feedback[]> {
         return this._feedback.asObservable();
     }
 
-    fetch() {
+    fetch(): Observable<Feedback[]> {
         return this.firestore.collection<FeedbackInterface>('feedback').valueChanges({idField: 'id'}).pipe(
             map(resData => {
                 const temp = [];
@@ -47,20 +47,20 @@ export class FeedbackService {
         );
     }
 
-    async update(oriFeedback: Feedback, feedback: string) {
-        return await this.firestore.doc(`feedback/${oriFeedback.id}`).set({
+    update(oriFeedback: Feedback, feedback: string): Promise<void> {
+        return this.firestore.doc(`feedback/${oriFeedback.id}`).set({
             feedback
         });
     }
 
-    async delete(feedback: Feedback) {
-        return await this.firestore.doc(`feedback/${feedback.id}`).delete();
+    delete(feedback: Feedback): Promise<void> {
+        return this.firestore.doc(`feedback/${feedback.id}`).delete();
     }
 
-    async add(feedback: string) {
+    add(feedback: string): Promise<void> {
         const id = this.firestore.createId();
         const uid = this.authService.userData.uid;
-        return await this.firestore.collection('feedback').doc(id).set({
+        return this.firestore.collection('feedback').doc(id).set({
             id,
             feedback,
             timestamp: Timestamp.fromDate(new Date()),

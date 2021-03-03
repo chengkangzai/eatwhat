@@ -39,30 +39,51 @@ export class AuthService {
 
     }
 
-    // Returns true when user is looged in
+    /**
+     * Check if user is logged in
+     *
+     * @return boolean return if the user is logged in
+     */
     get isLoggedIn(): boolean {
         const user = JSON.parse(localStorage.getItem('user'));
         return (user !== null && user.emailVerified !== false);
     }
 
-    // Returns true when user's email is verified
+    /**
+     * Check if the user email is verified
+     *
+     * @return boolean return if the user email is verified
+     */
     get isEmailVerified(): boolean {
         const user = JSON.parse(localStorage.getItem('user'));
         return (user.emailVerified !== false);
     }
 
-    // Login in with email/password
-    SignIn(email, password) {
+    /**
+     * Sign in user with user and email
+     *
+     * @param email Email of the user
+     * @param password Password of the user
+     */
+    signIn(email, password): ReturnType<firebase.auth.Auth['signInWithEmailAndPassword']> {
         return this.ngFireAuth.signInWithEmailAndPassword(email, password);
     }
 
-    // Register user with email/password
-    RegisterUser(email, password) {
+    /**
+     *
+     * @param email Email of the user
+     * @param password Password of the user
+     */
+    registerUser(email, password): ReturnType<firebase.auth.Auth['createUserWithEmailAndPassword']> {
         return this.ngFireAuth.createUserWithEmailAndPassword(email, password);
     }
 
-    // Recover password
-    PasswordRecover(passwordResetEmail) {
+    /**
+     * Send password reset email to the user who want to recover the email
+     *
+     * @param passwordResetEmail the email of the user that wish to recover his password
+     */
+    passwordRecover(passwordResetEmail): Promise<void> {
         return this.ngFireAuth.sendPasswordResetEmail(passwordResetEmail)
             .then(() => {
                 window.alert('Password reset email has been sent, please check your inbox.');
@@ -71,26 +92,36 @@ export class AuthService {
             });
     }
 
-    // Sign in with Gmail
-    GoogleAuth() {
-        return this.AuthLogin(new GoogleAuthProvider());
+    /**
+     * Log in with google
+     */
+    googleAuth(): Promise<any> {
+        return this.authLogin(new GoogleAuthProvider());
     }
 
-    // Auth providers
-    AuthLogin(provider: AuthProvider): Promise<any> {
+    /**
+     * Authenticate user by using Social media account
+     *
+     * @param provider Auth provider that used to logged in
+     */
+    authLogin(provider: AuthProvider): Promise<any> {
         return this.ngFireAuth.signInWithPopup(provider)
             .then((result) => {
                 this.ngZone.run(() => {
                     this.router.navigate(['tabs/food']);
                 });
-                this.SetUserData(result.user);
+                this.setUserData(result.user);
             }).catch((error) => {
                 window.alert(error);
             });
     }
 
-    // Store user in localStorage
-    SetUserData(user) {
+    /**
+     * Save user data to firestore
+     *
+     * @param user User that just been authenticate
+     */
+    setUserData(user: User): Promise<void> {
         const userRef: AngularFirestoreDocument<any> = this.afStore.doc(`users/${user.uid}`);
         const userData: User = {
             uid: user.uid,
@@ -104,8 +135,10 @@ export class AuthService {
         });
     }
 
-    // Sign-out
-    SignOut() {
+    /**
+     * Sign out the user
+     */
+    signOut(): Promise<void> {
         return this.ngFireAuth.signOut().then(() => {
             localStorage.removeItem('user');
             this.router.navigate(['auth']);
