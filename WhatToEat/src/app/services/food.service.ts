@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, Observable, Subscription} from 'rxjs';
 import {Food} from '../model/food';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {first, map, tap} from 'rxjs/operators';
@@ -30,12 +30,12 @@ export class FoodService {
     // tslint:disable-next-line:variable-name
     private _food = new BehaviorSubject<Food[]>([]);
 
-    get food() {
+    get food(): Observable<Food[]> {
         return this._food.asObservable();
     }
 
-    async fetch() {
-        await this.authService.authState.pipe(first()).subscribe(user => {
+    async fetch(): Promise<Subscription> {
+        return this.authService.authState.pipe(first()).subscribe(user => {
             return this.firestore.collection<FoodInterface>(`user/${user.uid}/food`).valueChanges({idField: 'id'}).pipe(
                 map(resData => {
                     const temp = [];
@@ -58,7 +58,7 @@ export class FoodService {
     }
 
 
-    async update(oriFood: Food, newFood: Food) {
+    async update(oriFood: Food, newFood: Food): Promise<Subscription> {
         return this.authService.authState.subscribe(user => {
             newFood.timestamp = Timestamp.now();
             newFood.userID = user.uid;
@@ -68,13 +68,13 @@ export class FoodService {
         });
     }
 
-    async delete(food: Food) {
+    async delete(food: Food): Promise<Subscription> {
         return this.authService.authState.subscribe(user => {
             return this.firestore.doc(`user/${user.uid}/food/${food.id}`).delete();
         });
     }
 
-    async add(food: Food) {
+    async add(food: Food): Promise<Subscription> {
         const id = this.firestore.createId();
         return this.authService.authState.subscribe(user => {
             food.id = id;
