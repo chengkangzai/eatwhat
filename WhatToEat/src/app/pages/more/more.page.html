@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
     <ion-toolbar>
         <ion-title>
-            More Page
+            More
         </ion-title>
     </ion-toolbar>
 </ion-header>
@@ -35,7 +35,7 @@
                         <ion-icon name="bug" slot="start"></ion-icon>
                         <ion-label>View Feedback</ion-label>
                     </ion-item>
-                    <ion-item button detail (click)="userMgn()" >
+                    <ion-item button detail (click)="userMgn()">
                         <ion-icon name="people" slot="start"></ion-icon>
                         <ion-label>User Management</ion-label>
                     </ion-item>
@@ -45,3 +45,12 @@
     </ion-grid>
 
 </ion-content>
+
+<ion-footer>
+    <ion-toolbar class="ion-align-items-center ion-text-center">
+        <ion-button href="https://play.google.com/store/apps/details?id=app.web.whattoeathuh" fill="outline">
+            <ion-icon name="logo-android" slot="start"></ion-icon>
+            Get android App
+        </ion-button>
+    </ion-toolbar>
+</ion-footer>
