@@ -81,7 +81,6 @@ export class FoodPage implements OnInit, OnDestroy {
             clearInterval(interval);
             const alert = await this.alertController.create({
                 header: this.selectedFood.food + '🎉🎉🎉',
-                // message: this.selectedFood.food + ' is selected ! ',
                 buttons: [{
                     text: 'OK',
                     role: 'cancel',
