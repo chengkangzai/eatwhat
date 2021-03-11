@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthService} from '../../services/auth.service';
 import {RoleService} from '../../services/role.service';
-import {AlertController, ModalController, ToastController} from '@ionic/angular';
+import {AlertController, ModalController, ToastController, Platform} from '@ionic/angular';
 import {Subscription} from 'rxjs';
 import {AboutComponent} from '../../components/about/about.component';
 import {AngularFireFunctions} from '@angular/fire/functions';
@@ -15,6 +15,7 @@ import {AngularFireFunctions} from '@angular/fire/functions';
 export class MorePage implements OnInit, OnDestroy {
     isMaster = false;
     isMaster$: Subscription;
+    isPhone = false;
 
     constructor(
         private router: Router,
@@ -23,11 +24,18 @@ export class MorePage implements OnInit, OnDestroy {
         private alertController: AlertController,
         private modalController: ModalController,
         private functions: AngularFireFunctions,
-        private toaster: ToastController
+        private toaster: ToastController,
+        private platform: Platform
     ) {
     }
 
     ngOnInit() {
+        if (
+            this.platform.is('hybrid') &&
+            (this.platform.is('android') || this.platform.is('ios'))
+        ) {
+            this.isPhone = true;
+        }
         this.isMaster$ = this.role.isMaster().subscribe(master => {
             this.isMaster = master;
         });

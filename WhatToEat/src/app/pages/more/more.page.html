@@ -46,7 +46,7 @@
 
 </ion-content>
 
-<ion-footer>
+<ion-footer *ngIf="isPhone === false">
     <ion-toolbar class="ion-align-items-center ion-text-center">
         <ion-button href="https://play.google.com/store/apps/details?id=app.web.whattoeathuh" fill="outline">
             <ion-icon name="logo-android" slot="start"></ion-icon>
