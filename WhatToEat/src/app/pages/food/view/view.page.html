@@ -21,7 +21,7 @@
 
         <ion-row *ngIf="!isLoading">
             <ion-col class="ion-text-center" offset-lg="3" offset-md="2" size-lg="6" size-md="8">
-                <form [formGroup]="form">
+                <form [formGroup]="form" (ngSubmit)="foodUIService.onSubmitForm(this.form)">
                     <ion-item>
                         <ion-label position="floating">Add new Food</ion-label>
                         <ion-input formControlName="food" type="text"></ion-input>

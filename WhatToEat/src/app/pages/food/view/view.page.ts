@@ -35,7 +35,7 @@ export class ViewPage implements OnInit, OnDestroy {
         });
         this.form = new FormGroup({
             food: new FormControl(null, {
-                updateOn: 'blur',
+                updateOn: 'change',
                 validators: [Validators.required]
             })
         });
