@@ -9,6 +9,16 @@ Since this application is build by using [Ionic](https://github.com/ionic-team/i
 npm install -g @ionic/cli
 npm install -g @angular/cli
 ```
+After that, to install the dependencies, 
+
+```sh
+yarn install 
+```
+OR
+
+```sh
+npm install 
+```
 
 After install ionic and angular, you need to copy your firebase config to enviroment file like so :
 ```sh
